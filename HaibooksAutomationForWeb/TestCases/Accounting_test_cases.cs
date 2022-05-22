@@ -358,7 +358,7 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(2));
             _systemElements1.debit_2.SendKeys(Constants.debit);
             _systemElements1.debit_2.SendKeys(Keys.Tab);
-
+            Thread.Sleep(TimeSpan.FromSeconds(2));
         }
 
     }
