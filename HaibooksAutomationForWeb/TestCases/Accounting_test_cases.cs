@@ -63,6 +63,18 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(2));
             waitformee.Until(driver => _systemElements1.profilt_available_label.Displayed);
             string txtProfitAvailable = _systemElements1.txtProfitAvailable.Text;
+            double text_pofit_val=0;
+            string  txtProfitAvailable_price = txtProfitAvailable.Trim('£');
+          if(txtProfitAvailable_price.Contains("-"))
+            {
+                txtProfitAvailable_price = txtProfitAvailable_price.Trim('-');
+                txtProfitAvailable_price = txtProfitAvailable_price.Trim(' ');
+                txtProfitAvailable_price = txtProfitAvailable_price.Trim('£');
+               // Console.WriteLine(txtProfitAvailable_price);
+                double txtProfitAvailable_price_int = Convert.ToDouble(txtProfitAvailable_price);
+                text_pofit_val = -txtProfitAvailable_price_int;
+            }
+
             //Console.WriteLine(txtProfitAvailable);
 
             //Select shareholder
@@ -104,7 +116,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.Dividends_label.Displayed);
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 _systemElements1.add_Dividend_button.Click();
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(TimeSpan.FromSeconds(4));
                 waitformee.Until(driver => _systemElements1.profilt_available_label.Displayed);
 
                 select_shareholder.SelectByIndex(0);
@@ -124,6 +136,10 @@ namespace HaibooksAutomationForWeb
             //global_issue_date_dividends = today_date;            
             //_systemElements1.issue_date_dividends.Clear();
             //_systemElements1.issue_date_dividends.SendKeys(today_date);
+
+
+            if(text_pofit_val > 0)
+            { 
 
             //Amount
             _systemElements1.Amount.Clear();
@@ -150,7 +166,7 @@ namespace HaibooksAutomationForWeb
             // global_description = description;
             //Console.WriteLine(description);
 
-            _systemElements1.Save_button.Click();
+            _systemElements1.Save_button_any.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
             //count all dividens
             string all_dividens_counts = _systemElements1.all_Dividends_count.Text;
@@ -233,6 +249,13 @@ namespace HaibooksAutomationForWeb
             {
                 Console.WriteLine("Alert: Date is not saving");
             }
+            }
+
+            else
+            {
+                Console.WriteLine("Profit cannot be added because profit is in negative");
+                _systemElements1.cancel.Click();
+            }
         }
 
 
@@ -243,7 +266,7 @@ namespace HaibooksAutomationForWeb
         [AllureStory("verify that user can Add Journals successfully")]
         [Test, Order(2)]
         //Receipts >> verify that user can Add Journals successfully
-        public void test_case_2_add_journals()
+        public void test_case_2_add_journals_with_VAT_inclusive()
         {
             _systemElements1.user_already_login();
             _systemElements1.redirect_to_menu_from_settings();
@@ -251,7 +274,8 @@ namespace HaibooksAutomationForWeb
             waitformee.Until(driver => _systemElements1.acccounting_left_menu.Displayed);
             if (_systemElements1.acccounting_left_menu.GetAttribute("aria-expanded") == "false")
             {
-                _systemElements1.acccounting_left_menu.Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.acccounting_left_menu);
+               // _systemElements1.acccounting_left_menu.Click();
             }
              ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.journals_left_side);
             waitformee.Until(driver => _systemElements1.jounrals_label.Displayed);
@@ -307,7 +331,8 @@ namespace HaibooksAutomationForWeb
             //Add Item Description 1 
             MyHelperClass item_desc1 = new MyHelperClass();
             var item_description_1 = item_desc1.template_message_body(3);
-            _systemElements1.item_desription_1.Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.item_desription_1);
+            //_systemElements1.item_desription_1.Click();
             _systemElements1.item_desription_1.Clear();
             _systemElements1.item_desription_1.SendKeys(item_description_1);
             var items_desc_1 = _systemElements1.item_desription_1.GetAttribute("value");
@@ -331,7 +356,11 @@ namespace HaibooksAutomationForWeb
             //Add Item Description 2
             MyHelperClass item_desc2 = new MyHelperClass();
             var item_description_2 = item_desc2.template_message_body(3);
-            _systemElements1.item_desription_2.Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.item_desription_2);
+           // _systemElements1.item_desription_2.Click();           
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            _systemElements1.reference_textarea.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             _systemElements1.item_desription_2.Clear();
             _systemElements1.item_desription_2.SendKeys(item_description_2);
             var items_desc_2 = _systemElements1.item_desription_2.GetAttribute("value");

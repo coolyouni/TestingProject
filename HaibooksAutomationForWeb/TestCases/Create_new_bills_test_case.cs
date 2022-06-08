@@ -197,10 +197,7 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_amount_due
             Assert.AreEqual(amount_due, invoice_detail_amount_due);
-
-
-            //invoice_detail_comment
-           Assert.AreEqual(comment_added, invoice_detail_comment);
+                    
 
             //invoice_detail_description
             Assert.AreEqual(description, invoice_detail_description);
@@ -222,6 +219,8 @@ namespace HaibooksAutomationForWeb
             //invoice_detail_price
             Assert.AreEqual(price_bill_expected, invoice_detail_price);
 
+            //invoice_detail_comment
+            Assert.AreEqual(comment_added, invoice_detail_comment);
 
         }
 
@@ -443,10 +442,7 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_amount_due
             Assert.AreEqual(amount_due, invoice_detail_amount_due);
-
-
-            //invoice_detail_comment
-           Assert.AreEqual(comment_added, invoice_detail_comment);
+                      
 
             //invoice_detail_description
             Assert.AreEqual(description, invoice_detail_description);
@@ -480,6 +476,9 @@ namespace HaibooksAutomationForWeb
             {
                 Assert.Fail("Files not showing in files tab");
             }
+
+            //invoice_detail_comment
+            Assert.AreEqual(comment_added, invoice_detail_comment);
 
         }
 

@@ -382,6 +382,7 @@ namespace HaibooksAutomationForWeb
                 reclaim_vat_date = new_date_for_checking.Replace('-', '/');
                 _systemElements1.save_button.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(2));
+                _systemElements1.alert_quick_check_vat_save();
             }
 
             _systemElements1.redirect_to_menu_from_settings();
@@ -394,6 +395,7 @@ namespace HaibooksAutomationForWeb
                 _systemElements1.create_new_invoice_dashboard.Click();
                 waitformee.Until(driver => _systemElements1.select_contact.Displayed);
 
+                Thread.Sleep(TimeSpan.FromSeconds(2));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetCssValue("display");
                 Console.WriteLine("display"+display_vat_showing);
@@ -734,6 +736,7 @@ namespace HaibooksAutomationForWeb
                 _systemElements1.create_new_invoice_dashboard.Click();
                 waitformee.Until(driver => _systemElements1.select_contact.Displayed);
 
+                Thread.Sleep(TimeSpan.FromSeconds(3));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetCssValue("display");
                 if (display_vat_showing == "inline-block")

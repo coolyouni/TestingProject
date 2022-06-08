@@ -82,7 +82,9 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement add_contact_region => driver.FindElement(By.Id("contact-modal-county"));
 
 
-        public IWebElement Save_button => driver.FindElement(By.XPath("//button[contains(.,'Save')]"));
+        public IWebElement Save_button_any => driver.FindElement(By.XPath("//button[contains(.,'Save')]"));
+        public IWebElement Save_button_quick_check => driver.FindElement(By.XPath("//button[@type='button'][normalize-space()='Save']"));
+
         public IWebElement cancel_button => driver.FindElement(By.XPath("//button[contains(.,'Cancel')]"));
 
         public IWebElement All_contact_tab => driver.FindElement(By.XPath("//a[@id='tab_all_contacs']"));

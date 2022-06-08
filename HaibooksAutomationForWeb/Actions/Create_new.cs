@@ -162,7 +162,7 @@ namespace HaibooksAutomationForWeb.Elements
                     //Adding region
                     _systemElements1.add_contact_region.SendKeys(Constants.region);
 
-                    _systemElements1.Save_button.Click();
+                    _systemElements1.Save_button_any.Click();
                     Thread.Sleep(TimeSpan.FromSeconds(2));
 
                 }

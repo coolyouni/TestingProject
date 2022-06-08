@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using HaibooksAutomationForWeb.Constant;
 using HaibooksAutomationForWeb.MyHelper;
@@ -25,6 +26,21 @@ namespace HaibooksAutomationForWeb.Elements
                 Alert_intercom_tour_frame.Click();
             }
         }
+
+        public void alert_quick_check_vat_save()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            List<IWebElement> list_for_element = new List<IWebElement>();
+            list_for_element.AddRange(driver.FindElements(By.XPath("//button[@type='button'][normalize-space()='Save']")));        
+            if (list_for_element.Count > 0)
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.Save_button_any);
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+                // Save_button_any.Click();
+            }
+        }
+
 
         public int validation_invoice_number()
         {
@@ -50,7 +66,8 @@ namespace HaibooksAutomationForWeb.Elements
                 }
                 else if(module == Constants.bill_creation)
                 {
-                    bill_term_days.Click();
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.bill_term_days);
+                    //bill_term_days.Click();
                     bill_term_days.Clear();
                     bill_term_days.SendKeys(term_days_value);                 
 

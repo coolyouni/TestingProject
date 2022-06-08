@@ -301,8 +301,7 @@ namespace HaibooksAutomationForWeb
             //}
             //catch (Exception e) { }
             //_systemElements1.dashboard_leftmenu.Click();
-            _systemElements1.perform_click_to_dashboard();
-
+            _systemElements1.perform_click_to_dashboard();           
             Boolean create_new_left_side_showing = _systemElements1.create_new_left_side.Displayed;
             if(create_new_left_side_showing==true)
             {

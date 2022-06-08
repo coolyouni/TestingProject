@@ -28,7 +28,7 @@ namespace HaibooksAutomationForWeb.TestCases
     public class Baseclass
     {
         public IWebDriver driver;
-        public string homeURL = Constants.main_website;
+        public string homeURL = Constants.Any_link;
         public system_elements _systemElements1;
         public Create_new_invoice_test_case Create_new_test_case1;
 
