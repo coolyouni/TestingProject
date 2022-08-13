@@ -22,6 +22,7 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement select_business_drop_down => driver.FindElement(By.Id("select-mode"));
         public IWebElement select_contact_drop_down_value => driver.FindElement(By.XPath("//*[@id='createInvoice_contactInformationDropdown']/option[3]"));
         public IWebElement select_contact_drop_down_value_bill => driver.FindElement(By.XPath("//*[@id='select-contact']/option[3]"));
+        public IWebElement select_contact_drop_down_value_expense => driver.FindElement(By.XPath("//*[@id='select-contact']/option[2]"));
         public IWebElement issue_date => driver.FindElement(By.XPath("//div[@id='issue-date']//input[@role='combobox']"));
         public IWebElement issue_date_mileage => driver.FindElement(By.XPath("//input[@class='dx-texteditor-input']"));
         

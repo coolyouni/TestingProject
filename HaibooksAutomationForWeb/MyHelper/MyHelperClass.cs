@@ -125,8 +125,8 @@ namespace HaibooksAutomationForWeb.MyHelper
 
             public int GetRandominvoicevalue(int length)
             {
-                int _min = 500;
-                int _max = 1000;
+                int _min = 1000;
+                int _max = 2000;
                 Random _rdm = new Random();
                 return _rdm.Next(_min, _max);
             }

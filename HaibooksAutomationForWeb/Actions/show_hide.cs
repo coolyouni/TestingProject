@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using HaibooksAutomationForWeb.TestCases;
 using OpenQA.Selenium;
@@ -127,6 +128,73 @@ namespace HaibooksAutomationForWeb.Elements
                 return false;
             }
         }
+
+
+        public bool recceipt_title_related_items_showing(String id)
+        {
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.Id(id)));
+            if (list_for_element1.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        public bool business_space_x_showing()
+        {
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.XPath("//span[normalize-space()='SpaceX']")));
+            if (list_for_element1.Count > 0)
+            {               
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool business_space_x_placeholder_showing()
+        {
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.XPath("//span[contains(text(),'SpaceX')]")));
+            if (list_for_element1.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public void perform_select_SpaceX()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            bool business_spacex_shoiwng = _systemElements1.business_space_x_showing();
+            if (business_spacex_shoiwng == false)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+                              
+                waitformee.Until(driver => _systemElements1.business_filter_option.Displayed);
+                business_filter_option.Click();
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+                bool showing_palceholder = _systemElements1.business_space_x_placeholder_showing();
+                if (showing_palceholder == true)
+                {
+                    business_spacex.Click();
+                }
+            }
+
+        }
+
 
 
 

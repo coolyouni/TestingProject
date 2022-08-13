@@ -14,6 +14,14 @@ namespace HaibooksAutomationForWeb.Constant
         public const string screenshot_path="D://screenshot//";
         public const string excel_path_for_data_driven = @"D:\Haibooks\datadriven_haibooks.xlsx";
         public const string file_upload_script = @"D:\Haibooks\file_upload_script.exe";
+        public const string wrong_file_upload_script = @"D:\Haibooks\wrong_file_upload.exe";
+        public const string multiple_file_upload_script = @"D:\Haibooks\multiple_file_upload.exe";
+
+        //file upload 
+        public const string multiple_file_upload_path = "D:/Haibooks/receipt_for_upload.jpg \n D:/Haibooks/multiple_upload_1.jpg";
+        public const string single_file_upload_path = "D:/Haibooks/receipt_for_upload.jpg";
+        public const string wrong_file_upload_path = "D:/Haibooks/wrong_type_upload.bmp";
+        
 
         //Login with paramters haibooks
         public const string login_username = "engyounasrehman@gmail.com";
@@ -24,6 +32,10 @@ namespace HaibooksAutomationForWeb.Constant
         // //Login with paramters test2haibooks
         public const string test2_login_username = "younas.rehman@haibooks.com";
         public const string test2_login_password = "Khattak@321";
+
+        //// //Login with paramters test2haibooks
+        //public const string test2_login_username = "seckin.tuzun@arfitect.com";
+        //public const string test2_login_password = "Arf1234";
 
         // //Login with paramters receipthaibooks
         public const string receipt_login_username = "alax_883@mailinator.com";
@@ -47,12 +59,12 @@ namespace HaibooksAutomationForWeb.Constant
 
         ////////////////////////////////////////////URL ///////////////////////////////////
         public const string main_website = "https://haibooks.com/Login";
-        public const string test_website = "https://test2.haibooks.com/login";
+        public const string test2_website = "https://test2.haibooks.com/login";
         public const string mailinator_URL = "https://mailinator.com";
         public const string receipt_site = "https://testreceipts.haibooks.com/login";
         public const string temp_test_environment = "https://haib-3713.test.haibooks.com/Login";
         public const string temp_test_3569_environment = "https://haib-3569.test.haibooks.com/Login";
-        public const string Any_link = "https://test2.haibooks.com/Login";
+        public const string Any_link = "https://haib-3965.test.haibooks.com/Login";
 
 
         //Registration Data///////////////////////////////////////
@@ -135,8 +147,13 @@ namespace HaibooksAutomationForWeb.Constant
         public const string all_divides_col = "//div[@class='dx-datagrid-content dx-datagrid-scroll-container']//colgroup";
         //public const string all_divides_rows = "//div[@class='dx-datagrid-headers dx-datagrid-nowrap']/div/table/tbody";
         public const string all_divides_row = "//div[@class='dx-datagrid-rowsview dx-datagrid-nowrap']/div/table/tbody";
-       
+
+        //Receipt cols and rows
+        public const string receipts_col = "//*[@class='dx-datagrid-rowsview dx-datagrid-nowrap']/div/table/colgroup";
+        public const string receipts_rows = "//*[@class='dx-datagrid-rowsview dx-datagrid-nowrap']/div/table/tbody";
         
+
+
 
         //Vat drop down options
         public const string no_vat = "No VAT";

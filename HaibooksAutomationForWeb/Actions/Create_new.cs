@@ -85,6 +85,9 @@ namespace HaibooksAutomationForWeb.Elements
         public string global_vehicle_type { get; set; }
         public string global_vehicle_engine_value { get; set; }
 
+        //Receipt
+        public String global_vat_selected_value_vat { get; set; }
+        
 
 
         public void perform_select_contact(string module)
@@ -123,10 +126,12 @@ namespace HaibooksAutomationForWeb.Elements
                     select_contact_List = new SelectElement(select_contact_drop_down_option_bill);
                     IList<IWebElement> options = select_contact_List.Options;
                     size_of_drop_down_option = options.Count;
+
+                    Console.WriteLine("size of drop down:" + size_of_drop_down_option);
                 }
 
 
-                if (size_of_drop_down_option <= 2)
+                if (size_of_drop_down_option < 2)
                 {
                     //Add contact
                    //_systemElements1.select_contact_drop_down_option.Click();
@@ -141,7 +146,7 @@ namespace HaibooksAutomationForWeb.Elements
                     var business_full_name = business_name.template_message_body(20);
                     _systemElements1.add_contact_business_full_name.SendKeys(business_full_name);
 
-                    //Adding meail
+                    
                     //Adding Email
                     MyHelperClass c = new MyHelperClass();
                     string email_value = c.GetRandomEmailvalue(Constants.firstname);
@@ -171,10 +176,16 @@ namespace HaibooksAutomationForWeb.Elements
                     select_contact_List.SelectByIndex(2);
                     Thread.Sleep(TimeSpan.FromSeconds(1));
                 }
+
+                else if (size_of_drop_down_option == 2)
+                {
+                    select_contact_List.SelectByIndex(1);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                }
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 if (module == Constants.invoice_creation)
                 {
-                   selected_value_for_contact_info = select_contact_drop_down_value.GetAttribute("value");
+                    selected_value_for_contact_info = select_contact_drop_down_value.GetAttribute("value");
                     global_selected_value_contact_info = selected_value_for_contact_info;
                     contact_info_title = _systemElements1.select_contact_drop_down_value.GetAttribute("data-content");
                     index = contact_info_title.IndexOf('>');
@@ -184,7 +195,7 @@ namespace HaibooksAutomationForWeb.Elements
                     global_selected_text_contact_info = contact_info_title;
 
                 }
-                else if(module == Constants.bill_creation)
+                else if (module == Constants.bill_creation)
                 {
                     selected_value_for_contact_info = select_contact_drop_down_value_bill.GetAttribute("value");
                     global_selected_value_contact_info = selected_value_for_contact_info;
@@ -195,6 +206,20 @@ namespace HaibooksAutomationForWeb.Elements
                     contact_info_title = contact_info_title.Remove(0, index + 1);
                     global_selected_text_contact_info = contact_info_title;
                 }
+
+
+                else if (module == Constants.expense_creation)
+                {
+                    selected_value_for_contact_info = select_contact_drop_down_value_expense.GetAttribute("value");
+                    global_selected_value_contact_info = selected_value_for_contact_info;
+                    contact_info_title = _systemElements1.select_contact_drop_down_value_expense.GetAttribute("data-content");
+                    index = contact_info_title.IndexOf('>');
+                    contact_info_title = contact_info_title.Remove(0, index + 1);
+                    index = contact_info_title.IndexOf('>');
+                    contact_info_title = contact_info_title.Remove(0, index + 1);
+                    global_selected_text_contact_info = contact_info_title;
+                }
+
 
                 else
                 {
@@ -296,6 +321,36 @@ namespace HaibooksAutomationForWeb.Elements
                     global_vat_selected_value= vat_value_saved;
                 }
             }
+
+
+        public void perform_select_VAT_receipt(string vat_value)
+        {
+            //select contact list checked in sales invoice
+
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.Id("ReceiptItem0_VatRate")));
+            if (list_for_element1.Count >= 0)
+            {
+                SelectElement select_contact_List1 = new SelectElement(vat_drop_down_receipt);
+                IList<IWebElement> options = select_contact_List1.Options;
+                int size_of_drop_down_option = options.Count;
+                if (size_of_drop_down_option <= 2)
+                {
+                    //Add Account
+                }
+                else if (size_of_drop_down_option > 2)
+                {
+                    select_contact_List1.SelectByValue(vat_value);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                }
+                receipt_item_quantity.SendKeys(Keys.Tab);
+                string vat_value_saved = vat_drop_down_receipt.Text;
+                //Console.WriteLine("Vat value: " + vat_value_saved);
+                global_vat_selected_value_vat = vat_value_saved;
+            }
+        }
+
+
 
         public void perform_adding_invoice_bill_expense_mileage(string module)
         {
@@ -920,8 +975,17 @@ namespace HaibooksAutomationForWeb.Elements
         {
             //Select staf member            
             SelectElement staff = new SelectElement(_systemElements1.Mileage_staff_drop_down);
-            staff.SelectByIndex(2);         
-            String staff_value = staff.Options.ElementAt(2).Text;
+            String staff_value;
+            try
+            {
+                staff.SelectByIndex(1);
+                 staff_value = staff.Options.ElementAt(1).Text;
+            }
+            catch(Exception e)
+            {
+                staff.SelectByIndex(0);
+                staff_value = staff.Options.ElementAt(0).Text;
+            }
 
             global_staff_value = staff_value;
 

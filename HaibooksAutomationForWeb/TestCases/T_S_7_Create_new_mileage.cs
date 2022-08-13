@@ -27,16 +27,26 @@ using WebDriverManager.Helpers;
 using OpenQA.Selenium.Chrome;
 using System.IO;
 using SolrNet.Utils;
-
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
-
+    [TestClass]
     [TestFixture]
-    public class Create_new_mileage : Baseclass
+    [AllureNUnit]
+    [AllureSuite("Create New Mileage")]
+    [AllureTag("Create New Mileage")]
+
+
+    public class T_S_7_Create_new_mileage : Baseclass
     {
 
-      
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify create_new_Mileage")]
 
         [Test, Order(1)]
         public void test_case_1_create_new_Mileage()
@@ -87,7 +97,9 @@ namespace HaibooksAutomationForWeb
 
             _systemElements1.verifying_mileage_saved_data_driven(Constants.shhet_10, staff_saved_value, issue_date_saved_value, mileage_number_saved_value, numberof_miles_saved_value, vehicle_saved_value, engine_saved_value, description_saved_value, mileage_created, mileage_status, mileage_number_showint_top, mileage_status_showing_at_top, currency_saved_value, mileage_expense_saved_value);
 
-            Assert.AreEqual(staff_value, staff_saved_value);
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(staff_value, staff_saved_value);
             Assert.AreEqual(today_date, issue_date_saved_value);
 
             //Mileage number showing
@@ -109,8 +121,9 @@ namespace HaibooksAutomationForWeb
 
             Assert.AreEqual("Unpaid", mileage_status_showing_at_top);
             Assert.AreEqual("GBP", currency_saved_value);
-                      
-                                   
+
+            });
+
             try
             {
                 //Mileage expense
@@ -131,13 +144,24 @@ namespace HaibooksAutomationForWeb
         }
 
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify create_new_Mileage_with_file_attachment")]
 
         [Test, Order(2)]
         public void test_case_2_create_new_Mileage_with_file_attachment()
         {
             _systemElements1.user_already_login();
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
+            bool already_logged = _systemElements1.global_logged_in_true_false;
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+            if (already_logged == true)
+            {
+                _systemElements1.perform_click_to_dashboard();
+            }           
+            Thread.Sleep(TimeSpan.FromSeconds(4));           
+           waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);           
             _systemElements1.create_new_dashboard.Click();
             waitformee.Until(driver => _systemElements1.create_new_Mileage_dashboard_1.Displayed);
             Thread.Sleep(TimeSpan.FromSeconds(2));
@@ -145,7 +169,8 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(4));
 
             waitformee.Until(driver => _systemElements1.attach_files.Displayed);
-            _systemElements1.attach_files.Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.attach_files);
+            //_systemElements1.attach_files.Click();
             waitformee.Until(driver => _systemElements1.upload_tab.Displayed);
             _systemElements1.upload_tab.Click();
             waitformee.Until(driver => _systemElements1.browse_file_upload.Displayed);
@@ -153,7 +178,7 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
             using (Process exeProcess = Process.Start(Constants.file_upload_script)) ;
-            Thread.Sleep(TimeSpan.FromSeconds(3));
+            Thread.Sleep(TimeSpan.FromSeconds(5));
             waitformee.Until(driver => _systemElements1.add_files_button.Enabled);
             _systemElements1.add_files_button.Click();
             try
@@ -219,8 +244,11 @@ namespace HaibooksAutomationForWeb
             _systemElements1.mileage_overview_tab.Click();
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
+            Assert.Multiple(() =>
+            {
 
-            Assert.AreEqual(staff_value, staff_saved_value);
+
+                Assert.AreEqual(staff_value, staff_saved_value);
             Assert.AreEqual(today_date, issue_date_saved_value);
 
             //Mileage number showing
@@ -242,7 +270,7 @@ namespace HaibooksAutomationForWeb
 
             Assert.AreEqual("Unpaid", mileage_status_showing_at_top);
             Assert.AreEqual("GBP", currency_saved_value);
-
+            });
 
             try
             {
@@ -262,16 +290,9 @@ namespace HaibooksAutomationForWeb
                 Console.WriteLine("Fail: Mileage expense value does not match");
             }
 
+            close();
+
         }
-
-
-
-
-
-
-
-
-
 
     }
     

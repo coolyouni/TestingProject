@@ -41,6 +41,8 @@ namespace HaibooksAutomationForWeb.Elements
             string email_adress = xlRange.Cells[emailadrress_col][emailadrress_row].value2;
             global_email_adress = email_adress;
 
+            xlApp.Quit();
+
         }
 
 

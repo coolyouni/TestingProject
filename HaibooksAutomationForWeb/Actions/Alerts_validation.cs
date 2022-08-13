@@ -60,7 +60,9 @@ namespace HaibooksAutomationForWeb.Elements
                 string term_days_value = Convert.ToString(term_days);
                 if (module == Constants.invoice_creation)
                 {
-                    invoice_term_days.Click();
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.invoice_term_days);
+                    //invoice_term_days.Click();
                     invoice_term_days.Clear();
                     invoice_term_days.SendKeys(term_days_value);
                 }

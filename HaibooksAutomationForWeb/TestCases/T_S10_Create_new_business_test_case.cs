@@ -27,15 +27,24 @@ using WebDriverManager.Helpers;
 using OpenQA.Selenium.Chrome;
 using System.IO;
 using SolrNet.Utils;
-
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
-
+    [TestClass]
     [TestFixture]
-    public class Create_new_business_test_case : Baseclass
+    [AllureNUnit]
+    [AllureSuite("Create New Business")]
+    [AllureTag("Create New Business")]
+  
+    public class T_S10_Create_new_business_test_case : Baseclass
     {
-        
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_create_new_business_with_vat")]
 
         [Test, Order(1)]
         public void test_case_1_verify_create_new_business_with_vat()
@@ -257,7 +266,10 @@ namespace HaibooksAutomationForWeb
         }
 
 
-
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_vat_showing_in_document_for_uncheck_VAT_business")]
 
         [Test, Order(2)]
         public void test_case_2_verify_vat_showing_in_document_for_uncheck_VAT_business()
@@ -664,7 +676,10 @@ namespace HaibooksAutomationForWeb
 
 
 
-
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_vat_showing_in_document_for_registered_vat_business")]
 
         [Test, Order(3)]
         public void test_case_3_verify_vat_showing_in_document_for_registered_vat_business()
@@ -976,13 +991,15 @@ namespace HaibooksAutomationForWeb
                     Assert.Fail("Test case fail: VAT total is still showing for Expense document");
                 }
             }
+
+            close();
         }
 
+        
 
 
 
-
-        }
+    }
 }
 
 

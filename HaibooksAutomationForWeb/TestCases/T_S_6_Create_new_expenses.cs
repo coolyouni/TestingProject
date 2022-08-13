@@ -27,31 +27,55 @@ using WebDriverManager.Helpers;
 using OpenQA.Selenium.Chrome;
 using System.IO;
 using SolrNet.Utils;
-
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
-
+    [TestClass]
     [TestFixture]
-    public class Create_new_bills_test_case : Baseclass
+    [AllureNUnit]
+    [AllureSuite("Create New Expenses")]
+    [AllureTag("Create New Expenses")]
+
+    public class T_S_6_Create_new_expenses : Baseclass
     {
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify create_new_expense_without_file_attachment")]
 
         [Test, Order(1)]
 
-        public void test_case_1_create_new_bill_without_file_attachment()
+        public void test_case_1_create_new_expense_without_file_attachment()
         {
             _systemElements1.user_already_login();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
             _systemElements1.create_new_dashboard.Click();
-            waitformee.Until(driver => _systemElements1.create_new_bill_dashboard.Displayed);
-            _systemElements1.create_new_bill_dashboard.Click();
+            waitformee.Until(driver => _systemElements1.create_new_expenses_dashboard_1.Displayed);
             Thread.Sleep(TimeSpan.FromSeconds(2));
-            waitformee.Until(driver => _systemElements1.select_contact.Displayed);
-            // _systemElements1.select_contact.Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.select_contact);
-            _systemElements1.perform_adding_invoice_bill_expense_mileage(Constants.bill_creation);
+            _systemElements1.create_new_expenses_dashboard_1.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+
+            //Select Paid by Staff
+            SelectElement paid_by = new SelectElement(_systemElements1.paid_by_drop_down);
+            paid_by.SelectByText(Constants.paid_by);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            //Select staf member            
+            SelectElement staff = new SelectElement(_systemElements1.staff_drop_down);
+            try
+            {
+                staff.SelectByIndex(1);
+            }
+            catch(Exception e)
+            {               
+            }
+
+            _systemElements1.perform_adding_invoice_bill_expense_mileage(Constants.expense_creation);
 
             string selected_text_contact_info = _systemElements1.selected_text_contact_info1;
             string today_date = _systemElements1.global_today_date;
@@ -85,7 +109,7 @@ namespace HaibooksAutomationForWeb
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_7, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
+            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_8, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
                                                                Constants.unit_cost_value, Constants.Quantity, Constants.vat_value_20_vat, vat_toal_value, total_amount_expected,
                                                                subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
                                                                status, invoice_created_by, price_bill_expected);
@@ -93,7 +117,7 @@ namespace HaibooksAutomationForWeb
             //click on saved And approve button
             _systemElements1.saved_and_approve_btn.Click();
 
-            _systemElements1.perform_saved_invoice_bill_expense_mileage(Constants.bill_creation);
+            _systemElements1.perform_saved_invoice_bill_expense_mileage(Constants.expense_creation);
 
             string contact_saved = _systemElements1.global_contact_saved;
             string invoice_issue_date = _systemElements1.global_invoice_issue_date;
@@ -120,7 +144,7 @@ namespace HaibooksAutomationForWeb
 
 
 
-            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_7, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
+            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_8, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
                                                                invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
                                                                 invoice_detail_subtotal, invoice_detail_tax, invoice_detail_total, invoice_detail_amount_paid, invoice_detail_amount_due, invoice_detail_comment, invoice_detail_description,
                                                                 invoice_detail_invoice_status, invoice_detail_invoice_created, invoice_detail_price);
@@ -135,7 +159,10 @@ namespace HaibooksAutomationForWeb
             //Console.WriteLine("Amount Paid Expected: Real=" + "0.00" + ": " + amount_paid);
             //Console.WriteLine("Amount Due Expected: Real=" + amount_due + ": " + amount_due_actual);
 
-            Assert.AreEqual(tota_value_expected, vat_toal_value);
+            Assert.Multiple(() =>
+            {
+
+                Assert.AreEqual(tota_value_expected, vat_toal_value);
             Assert.AreEqual(total_amount_expected, total_amount_value);
             Assert.AreEqual(price_bill_expected, price_bill_actual);
             Assert.AreEqual(Net_Amount_expected, subtotal_str);
@@ -148,22 +175,16 @@ namespace HaibooksAutomationForWeb
             //////////////////////////////////////Verifying save data//////////////
             ///
 
-            Assert.AreEqual(selected_text_contact_info, contact_saved);
+            
+           // Assert.AreEqual(selected_text_contact_info, contact_saved);
 
             //Verify issue date
             Assert.AreEqual(today_date, invoice_issue_date);
 
-            //verifying due date
-            Assert.AreEqual(addition_days, invoice_due_date);
-
-            //custom
-            Assert.AreEqual("Custom", invoice_custom);
-
-            //custom term days
-            Assert.AreEqual("30", invoice_term_days);
+          
 
             //invoice number
-            // Assert.AreEqual(invoice_number, detail_invoice_number);
+            //Assert.AreEqual(invoice_number, detail_invoice_number);
 
             //account_type
             Assert.AreEqual("Purchases", account_type);
@@ -197,7 +218,9 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_amount_due
             Assert.AreEqual(amount_due, invoice_detail_amount_due);
-                    
+
+
+          
 
             //invoice_detail_description
             Assert.AreEqual(description, invoice_detail_description);
@@ -218,36 +241,62 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_price
             Assert.AreEqual(price_bill_expected, invoice_detail_price);
-
-            //invoice_detail_comment
-            Assert.AreEqual(comment_added, invoice_detail_comment);
+            });
 
         }
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify create_new_expense_with_file_attachment")]
 
         [Test, Order(2)]
 
-        public void test_case_2_create_new_invoice_with_file_attachment()
+        public void test_case_2_create_new_expense_with_file_attachment()
         {
-
             _systemElements1.user_already_login();
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            bool already_logged = _systemElements1.global_logged_in_true_false;
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+          if(already_logged == true)
+            {
+               _systemElements1.perform_click_to_dashboard();
+            }
+            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);           
+
+            _systemElements1.create_new_dashboard.Click();
+            waitformee.Until(driver => _systemElements1.create_new_expenses_dashboard_1.Displayed);
             Thread.Sleep(TimeSpan.FromSeconds(2));
+            _systemElements1.create_new_expenses_dashboard_1.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+
+            ////Select Paid by Staff
+            //SelectElement paid_by = new SelectElement(_systemElements1.paid_by_drop_down);
+
+            //paid_by.SelectByText(Constants.paid_by);
+            //Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            ////Select staf member            
+            //SelectElement staff = new SelectElement(_systemElements1.staff_drop_down);
+            //List<IWebElement> list_for_element = new List<IWebElement>();
+            //staff.SelectByIndex(1);        
+
+            //Select Paid by Staff
+            SelectElement paid_by = new SelectElement(_systemElements1.paid_by_drop_down);
+            paid_by.SelectByText(Constants.paid_by);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            //Select staf member            
+            SelectElement staff = new SelectElement(_systemElements1.staff_drop_down);
             try
             {
-                waitformee.Until(driver => _systemElements1.create_new_left_side.Displayed);
+                staff.SelectByIndex(1);
             }
-            catch(Exception e) { }
-            _systemElements1.dashboard_leftmenu.Click();
-            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
-            _systemElements1.create_new_dashboard.Click();
-            waitformee.Until(driver => _systemElements1.create_new_bill_dashboard.Displayed);
-            //_systemElements1.create_new_bill_dashboard.Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.create_new_bill_dashboard);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            waitformee.Until(driver => _systemElements1.select_contact.Displayed);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.select_contact);
-            //_systemElements1.select_contact.Click();
+            catch (Exception e)
+            {
+            }
+
+
             waitformee.Until(driver => _systemElements1.attach_files.Displayed);
             _systemElements1.attach_files.Click();
             waitformee.Until(driver => _systemElements1.upload_tab.Displayed);
@@ -256,18 +305,10 @@ namespace HaibooksAutomationForWeb
             _systemElements1.browse_file_upload.Click();
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
-            // using (Process exeProcess = Process.Start(@"D:\Haibooks\file_upload_script.exe")) ;
-
             using (Process exeProcess = Process.Start(Constants.file_upload_script)) ;
-            
-            Thread.Sleep(TimeSpan.FromSeconds(3));
-            try
-            {
-                waitformee.Until(driver => _systemElements1.add_files_button.Enabled);
-            }catch(Exception e) { }
-
+            Thread.Sleep(TimeSpan.FromSeconds(7));
+            waitformee.Until(driver => _systemElements1.add_files_button.Enabled);
             _systemElements1.add_files_button.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(3));
             try
             {
                 bool attached_file_showing = _systemElements1.file_attached.Displayed;
@@ -282,9 +323,7 @@ namespace HaibooksAutomationForWeb
             }
 
 
-            _systemElements1.select_contact.Click();
-
-            _systemElements1.perform_adding_invoice_bill_expense_mileage(Constants.bill_creation);
+            _systemElements1.perform_adding_invoice_bill_expense_mileage(Constants.expense_creation);
 
             string selected_text_contact_info = _systemElements1.selected_text_contact_info1;
             string today_date = _systemElements1.global_today_date;
@@ -318,14 +357,14 @@ namespace HaibooksAutomationForWeb
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_7, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
+            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_9, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
                                                                Constants.unit_cost_value, Constants.Quantity, Constants.vat_value_20_vat, vat_toal_value, total_amount_expected,
                                                                subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
                                                                status, invoice_created_by, price_bill_expected);
             //click on saved And approve button
             _systemElements1.saved_and_approve_btn.Click();
 
-            _systemElements1.perform_saved_invoice_bill_expense_mileage(Constants.bill_creation);
+            _systemElements1.perform_saved_invoice_bill_expense_mileage(Constants.expense_creation);
 
             string contact_saved = _systemElements1.global_contact_saved;
             string invoice_issue_date = _systemElements1.global_invoice_issue_date;
@@ -351,7 +390,7 @@ namespace HaibooksAutomationForWeb
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
 
 
-            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_7, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
+            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_9, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
                                                               invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
                                                                invoice_detail_subtotal, invoice_detail_tax, invoice_detail_total, invoice_detail_amount_paid, invoice_detail_amount_due, invoice_detail_comment, invoice_detail_description,
                                                                invoice_detail_invoice_status, invoice_detail_invoice_created, invoice_detail_price);
@@ -367,20 +406,23 @@ namespace HaibooksAutomationForWeb
             //Console.WriteLine("Amount Paid Expected: Real=" + "0.00" + ": " + amount_paid);
             //Console.WriteLine("Amount Due Expected: Real=" + amount_due + ": " + amount_due_actual);
 
-            Assert.AreEqual("1", _systemElements1.bill_file_count.Text);
+            Assert.AreEqual("1", _systemElements1.expense_file_count.Text);
             Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.Files_tab_bill.Click();
-            waitformee.Until(driver => _systemElements1.All_files_label.Displayed);
+            _systemElements1.files_tab_expense.Click();
+            waitformee.Until(driver => _systemElements1.expense_all_Files_label.Displayed);
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
             _systemElements1.no_of_col_and_rows(Constants.files_col, Constants.files_rows);
             int column_size = _systemElements1.global_col;
             int row_size = _systemElements1.global_row;
 
-            _systemElements1.invoice_overview_tab.Click();
-            waitformee.Until(driver => _systemElements1.invoice_detail_issue_date.Displayed);
+            _systemElements1.expense_overview_tab.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(4));
 
-            Assert.AreEqual(tota_value_expected, vat_toal_value);
+            Assert.Multiple(() =>
+            {
+
+                Assert.AreEqual(tota_value_expected, vat_toal_value);
             Assert.AreEqual(total_amount_expected, total_amount_value);
             Assert.AreEqual(price_bill_expected, price_bill_actual);
             Assert.AreEqual(Net_Amount_expected, subtotal_str);
@@ -397,15 +439,7 @@ namespace HaibooksAutomationForWeb
 
             //Verify issue date
             Assert.AreEqual(today_date, invoice_issue_date);
-
-            //verifying due date
-            Assert.AreEqual(addition_days, invoice_due_date);
-
-            //custom
-            Assert.AreEqual("Custom", invoice_custom);
-
-            //custom term days
-            Assert.AreEqual("30", invoice_term_days);
+          
 
             //invoice number
             // Assert.AreEqual(invoice_number, detail_invoice_number);
@@ -442,7 +476,7 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_amount_due
             Assert.AreEqual(amount_due, invoice_detail_amount_due);
-                      
+
 
             //invoice_detail_description
             Assert.AreEqual(description, invoice_detail_description);
@@ -477,93 +511,96 @@ namespace HaibooksAutomationForWeb
                 Assert.Fail("Files not showing in files tab");
             }
 
-            //invoice_detail_comment
-            Assert.AreEqual(comment_added, invoice_detail_comment);
-
+            });
+            close();
         }
 
 
 
-
-
-        [Test, Order(3)]
-
-        public void test_case_3_verify_created_invoice_data_in_contacts()
-        {
-
-            //char myChar = 'x';
-            //string myString = "xyz";
-
-            //int count = myString.Count(s => s == myChar);
-            //int counts = Regex.Matches(selected_value_for_contact_info, ">").Count;
+      
 
 
 
-            //WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-            //_systemElements1.create_new_dashboard.Click();
-            //waitformee.Until(PRED => _systemElements1.create_new_invoice_dashboard.Displayed);
-            //_systemElements1.create_new_invoice_dashboard.Click();
-            //Thread.Sleep(TimeSpan.FromSeconds(2));
+        //[Test, Order(4)]
 
-            _systemElements1.user_already_login();
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
-            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
-            _systemElements1.create_new_dashboard.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(17));
-            // //Get Contact selected
-            // string selected_value_for_contact_info = _systemElements1.select_contact_drop_down_value.GetAttribute("data-content");
-            //// int counts = Regex.Matches(selected_value_for_contact_info, ">").Count;
-            // int index1 = selected_value_for_contact_info.IndexOf('>');
-            // //Console.WriteLine(counts);
-            // Console.WriteLine("index: " + index1);
+        //public void test_case_4_verify_created_expense_data_in_contacts()
+        //{
 
-            //string selected_value_for_contact_info1 = selected_value_for_contact_info.Remove(0, index1+1);
+        //    //char myChar = 'x';
+        //    //string myString = "xyz";
 
-            // int index2 = selected_value_for_contact_info1.IndexOf('>');
-            // Console.WriteLine("index: "+index2);
-            //string  selected_value_for_contact_info2 = selected_value_for_contact_info1.Remove(0, index2+1);
-
-            // Console.WriteLine(selected_value_for_contact_info2);
-
-            //string contact_info_title = _systemElements1.select_contact_drop_down_value.GetAttribute("data-content");
-            //int index = contact_info_title.IndexOf('>');
-            //contact_info_title = contact_info_title.Remove(0, index + 1);
-            //index = contact_info_title.IndexOf('>');
-            //contact_info_title = contact_info_title.Remove(0, index + 1);
-            //Console.WriteLine(contact_info_title);
-
-            //MyHelperClass comments_1 = new MyHelperClass();
-            //var comment_added = comments_1.template_message_body(20);
-            //_systemElements1.bill_comment.SendKeys(comment_added);
-            //var comments = _systemElements1.bill_comment.Text;
-
-            //Console.WriteLine(comments);           
-
-        }
+        //    //int count = myString.Count(s => s == myChar);
+        //    //int counts = Regex.Matches(selected_value_for_contact_info, ">").Count;
 
 
-        [Test, Order(4)]
-        public void test_case_4_verify_created_invoice_data_in_total_sales()
-        {
+
+        //    //WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+        //    //_systemElements1.create_new_dashboard.Click();
+        //    //waitformee.Until(PRED => _systemElements1.create_new_invoice_dashboard.Displayed);
+        //    //_systemElements1.create_new_invoice_dashboard.Click();
+        //    //Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        //    _systemElements1.user_already_login();
+        //    WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
+        //    waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
+        //    _systemElements1.create_new_dashboard.Click();
+        //    Thread.Sleep(TimeSpan.FromSeconds(17));
+        //    // //Get Contact selected
+        //    // string selected_value_for_contact_info = _systemElements1.select_contact_drop_down_value.GetAttribute("data-content");
+        //    //// int counts = Regex.Matches(selected_value_for_contact_info, ">").Count;
+        //    // int index1 = selected_value_for_contact_info.IndexOf('>');
+        //    // //Console.WriteLine(counts);
+        //    // Console.WriteLine("index: " + index1);
+
+        //    //string selected_value_for_contact_info1 = selected_value_for_contact_info.Remove(0, index1+1);
+
+        //    // int index2 = selected_value_for_contact_info1.IndexOf('>');
+        //    // Console.WriteLine("index: "+index2);
+        //    //string  selected_value_for_contact_info2 = selected_value_for_contact_info1.Remove(0, index2+1);
+
+        //    // Console.WriteLine(selected_value_for_contact_info2);
+
+        //    //string contact_info_title = _systemElements1.select_contact_drop_down_value.GetAttribute("data-content");
+        //    //int index = contact_info_title.IndexOf('>');
+        //    //contact_info_title = contact_info_title.Remove(0, index + 1);
+        //    //index = contact_info_title.IndexOf('>');
+        //    //contact_info_title = contact_info_title.Remove(0, index + 1);
+        //    //Console.WriteLine(contact_info_title);
+
+        //    //MyHelperClass comments_1 = new MyHelperClass();
+        //    //var comment_added = comments_1.template_message_body(20);
+        //    //_systemElements1.bill_comment.SendKeys(comment_added);
+        //    //var comments = _systemElements1.bill_comment.Text;
+
+        //    //Console.WriteLine(comments);           
+
+        //}
+
+
+        //[Test, Order(5)]
+        //public void test_case_5_verify_created_expense_data_in_total_sales()
+        //{
           
 
-        }
+        //}
 
 
-        [Test, Order(5)]
-        public void test_case_5_verify_created_invoice_data_in_statement_of_account()
-        {
+        //[Test, Order(6)]
+        //public void test_case_6_verify_created_expense_data_in_statement_of_account()
+        //{
 
 
-        }
+        //}
 
 
-        [Test, Order(6)]
-        public void test_case_6_verify_created_invoice_data_in_Debtors_Control_Account()
-        {
+        //[Test, Order(7)]
+        //public void test_case_7_verify_created_expense_data_in_Debtors_Control_Account()
+        //{
 
 
-        }    
+        //}    
+
+
 
 
 

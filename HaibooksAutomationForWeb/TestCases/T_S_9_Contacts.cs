@@ -23,15 +23,25 @@ using ExpectedConditions = OpenQA.Selenium.Support.UI.ExpectedConditions;
 using System.Net;
 using SoftAssert;
 using FluentAssertions;
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
     [TestClass]
-    public class Contacts : Baseclass
+    [AllureNUnit]
+    [AllureSuite("Contact Module")]
+    [AllureTag("Contact Module")]
+    public class T_S_9_Contacts : Baseclass
     {
-        
 
-        [Test, Order(1)]                  
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_contacts_are_adding")]
+        [Test, Order(1)]  
+        
         public void test_case_1_verify_contacts_are_adding()
         {
             _systemElements1.user_already_login();
@@ -71,32 +81,41 @@ namespace HaibooksAutomationForWeb
                 _systemElements1.Contact_information_expand_collapsed.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(2));
             }
-            Assert.AreEqual(full_name, _systemElements1.business_name_textbox.GetAttribute("value"));
-            Assert.AreEqual(contact, _systemElements1.ContactPerson_textbox.GetAttribute("value"));
-            Assert.AreEqual(email_value, _systemElements1.Email_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.phone_no_without_code, _systemElements1.Telephone_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.mobile_no, _systemElements1.Mobile_textbox.GetAttribute("value"));
-            Assert.AreEqual(homeURL, _systemElements1.Website_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.Fax_no, _systemElements1.Fax_textbox.GetAttribute("value"));
+
+            String business_full_name = _systemElements1.business_name_textbox.GetAttribute("value");
+            String contact_g = _systemElements1.ContactPerson_textbox.GetAttribute("value");
+           String email_value_g= _systemElements1.Email_textbox.GetAttribute("value");
+          String phone_no_g=  _systemElements1.Telephone_textbox.GetAttribute("value");
+            String mobile_no_g = _systemElements1.Mobile_textbox.GetAttribute("value");
+         String website_text_box_g=   _systemElements1.Website_textbox.GetAttribute("value");
+            String fax_text_box = _systemElements1.Fax_textbox.GetAttribute("value");
+
+          
             if (_systemElements1.adress_grid.GetAttribute("aria-expanded") == "false")
             {
                 _systemElements1.adress_expand_collapsed.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(2));
             }
+            String building_text_box = _systemElements1.Building_textbox.GetAttribute("value");
+            String street_no = _systemElements1.Street_textbox.GetAttribute("value");
+            String city = _systemElements1.CityOrTown_textbox.GetAttribute("value");
+            String post_code = _systemElements1.PostCode_textbox.GetAttribute("value");
+            String region = _systemElements1.region_textbox.GetAttribute("value");
 
-            Assert.AreEqual(Constants.Buidling_adress, _systemElements1.Building_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.street_no, _systemElements1.Street_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.city, _systemElements1.CityOrTown_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.post_code, _systemElements1.PostCode_textbox.GetAttribute("value"));
-            Assert.AreEqual(Constants.region, _systemElements1.region_textbox.GetAttribute("value"));
+
+
+            bool country_selected_true; 
+           
             string country_selected = driver.FindElement(By.XPath("//select[@id='CountryCode']")).GetAttribute("value");
             if (country_selected == "GB")
             {
                 Console.WriteLine("Country drop down is selecting correct value");
+                country_selected_true = true;
             }
             else
             {
-                Assert.Fail("country drop down value is showing wrong");
+                country_selected_true = false;
+               // Assert.Fail("country drop down value is showing wrong");
             }
 
 
@@ -114,27 +133,57 @@ namespace HaibooksAutomationForWeb
                 Thread.Sleep(TimeSpan.FromSeconds(2));
             }
 
+            bool terms_selection_true = true;
 
             try
             {
               bool terms_selection=  driver.FindElement(By.XPath("//div[contains(text(),'30 days')]")).Displayed;
-                if(terms_selection==true)
+              
+                if (terms_selection==true)
                 {
                     Console.WriteLine("Terms days are selecting correctly");
+                    terms_selection_true = true;
                 }
                 else
                 {
-                    Assert.Fail("Terms days are not showing correctly");
+                    //Assert.Fail("Terms days are not showing correctly");
+                    terms_selection_true = false;
                 }
             }catch(Exception e)
-                {}         
+                {}
+
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(full_name, business_full_name);
+                Assert.AreEqual(contact, contact_g);
+                Assert.AreEqual(email_value, email_value_g);
+                Assert.AreEqual(Constants.phone_no_without_code, phone_no_g);
+                Assert.AreEqual(Constants.mobile_no, mobile_no_g);
+                Assert.AreEqual(homeURL, website_text_box_g);
+                Assert.AreEqual(Constants.Fax_no, fax_text_box);
+
+                Assert.AreEqual(Constants.Buidling_adress, building_text_box);
+                Assert.AreEqual(Constants.street_no, street_no);
+                Assert.AreEqual(Constants.city, city);
+                Assert.AreEqual(Constants.post_code, post_code);
+                Assert.AreEqual(Constants.region, region);
+
+                Assert.AreEqual(true, country_selected_true);
+                Assert.AreEqual(true,  terms_selection_true);
+
+
+            });
 
 
             Console.WriteLine("Test case passed: All added values for each textbox and dropwon is showing correctly");
            
         }
 
-
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_contacts_expand_and_collpased_working_fine")]
         [Test, Order(2)]
 
         public void test_case_2_verify_contacts_expand_and_collpased_working_fine()
@@ -229,7 +278,7 @@ namespace HaibooksAutomationForWeb
                 }
             }
 
-
+            close();
 
         }
 
