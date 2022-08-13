@@ -35,7 +35,7 @@ namespace HaibooksAutomationForWeb
     [AllureSuite("Accounting Test cases")]
     [AllureTag("Accounting Test Cases")]
 
-    public class Accounting_test_cases : Baseclass
+    public class T_S_8_Accounting_test_cases : Baseclass
     {
 
         [AllureSeverity(SeverityLevel.critical)]
@@ -50,6 +50,7 @@ namespace HaibooksAutomationForWeb
             _systemElements1.user_already_login();
             _systemElements1.redirect_to_menu_from_settings();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            _systemElements1.perform_select_SpaceX();
             waitformee.Until(driver => _systemElements1.acccounting_left_menu.Displayed);
             if (_systemElements1.acccounting_left_menu.GetAttribute("aria-expanded") == "false")
             {
@@ -271,6 +272,7 @@ namespace HaibooksAutomationForWeb
             _systemElements1.user_already_login();
             _systemElements1.redirect_to_menu_from_settings();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            _systemElements1.perform_select_SpaceX();
             waitformee.Until(driver => _systemElements1.acccounting_left_menu.Displayed);
             if (_systemElements1.acccounting_left_menu.GetAttribute("aria-expanded") == "false")
             {
@@ -388,6 +390,8 @@ namespace HaibooksAutomationForWeb
             _systemElements1.debit_2.SendKeys(Constants.debit);
             _systemElements1.debit_2.SendKeys(Keys.Tab);
             Thread.Sleep(TimeSpan.FromSeconds(2));
+            close();
+
         }
 
     }

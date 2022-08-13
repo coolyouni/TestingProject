@@ -11,6 +11,7 @@ using Docker.DotNet.Models;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using HaibooksAutomationForWeb.Constant;
+using System.Diagnostics;
 
 namespace HaibooksAutomationForWeb.Elements
 {
@@ -41,12 +42,11 @@ namespace HaibooksAutomationForWeb.Elements
             xlWorkSheet.Cells[indexOfRow, 4] = timeTaken;
             xlWorkbook.Save();
             xlWorkbook.Close(true, misValue, misValue);
-            xlApp.Quit();                
+            //xlWorkbook = null;
+            xlApp.Quit();
+           // xlApp = null;
         }
 
-       
-
-
-
+      
     }
 }

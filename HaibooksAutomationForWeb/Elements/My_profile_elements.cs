@@ -16,11 +16,5 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement My_profile_first_name => driver.FindElement(By.XPath("//input[@id='firstName']"));
         public IWebElement My_profile_last_name => driver.FindElement(By.XPath("//input[@id='lastName']"));
         public IWebElement My_profile_email => driver.FindElement(By.XPath("//input[@id='email']"));
-
-
-
-
     }
-
-
 }

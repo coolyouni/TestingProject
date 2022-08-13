@@ -12,7 +12,8 @@ namespace HaibooksAutomationForWeb.Elements
     {     
 
         public IWebElement go_back_to_haibooks_leftmenu => driver.FindElement(By.XPath("//a[normalize-space()='Go back to Haibooks']"));
-        public IWebElement dashboard_leftmenu => driver.FindElement(By.Id("nav_link_dashboard"));
+        //public IWebElement dashboard_leftmenu => driver.FindElement(By.Id("nav_link_dashboard"));
+        public IWebElement dashboard_leftmenu => driver.FindElement(By.XPath("//a[@id='nav_link_dashboard']"));        
         public IWebElement contacts_leftmenu => driver.FindElement(By.Id("nav_link_contacts"));
         public IWebElement contact_link_left_menu => driver.FindElement(By.Id("nav_link_contacts"));
         public IWebElement System_settings_left_menu => driver.FindElement(By.XPath("//span[normalize-space()='System Settings']"));
@@ -148,16 +149,11 @@ namespace HaibooksAutomationForWeb.Elements
 
         //Searchbox
         public IWebElement searchbox => driver.FindElement((By.Id("input_search_0")));
-        
 
+        //file upload
+        public IWebElement file_upload => driver.FindElement((By.Id("recognizeInput")));
 
-
-
-
-
-
-
-
+       
 
     }
 }

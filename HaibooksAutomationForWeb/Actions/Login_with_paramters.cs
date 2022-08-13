@@ -14,8 +14,8 @@ namespace HaibooksAutomationForWeb.Elements
 {
    public partial class system_elements: Baseclass
     {
+        public bool global_logged_in_true_false { get; set; }
 
-        
         public void perform_login_with_paramters(string email_value, string password)
         {
             _systemElements1 = new system_elements(driver);          
@@ -51,19 +51,27 @@ namespace HaibooksAutomationForWeb.Elements
 
         public void user_already_login()
         {
-          
+            bool already_logged_in=true;
+            global_logged_in_true_false = already_logged_in;
+
+           // _systemElements1 = new system_elements(driver);
             List <IWebElement> list_for_element = new List<IWebElement>();
             list_for_element.AddRange(driver.FindElements(By.XPath("//a[contains(@href, \'#\')]")));
+          
             if (list_for_element.Count <= 0)
             {
+                already_logged_in = false;
+                global_logged_in_true_false = already_logged_in;
                 //driver.Quit();
-                if(homeURL == Constants.main_website)
-                { 
-                perform_login_with_paramters(Constants.login_username, Constants.login_password);
-                }
-                else if(homeURL == Constants.test_website)
+                if (homeURL == Constants.main_website)
                 {
-                    perform_login_with_paramters(Constants.test2_login_username, Constants.test2_login_password);
+                 // perform_login_with_paramters(Constants.login_username, Constants.login_password);
+                    perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);
+                }
+                else if(homeURL == Constants.test2_website)
+                {
+                   //perform_login_with_paramters(Constants.test2_login_username, Constants.test2_login_password);
+                    perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);
                 }
                 else if (homeURL == Constants.receipt_site)
                 {
@@ -82,10 +90,7 @@ namespace HaibooksAutomationForWeb.Elements
                 else if(homeURL==Constants.Any_link)
                 {
                     perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);                    
-                }
-
-             
-
+                }           
 
             }          
         }

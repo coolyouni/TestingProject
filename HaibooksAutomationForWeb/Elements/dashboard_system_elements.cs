@@ -19,6 +19,7 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement create_new_invoice_dashboard => driver.FindElement(By.XPath("//div[@class='dropdown-menu context-menu show']//a[@id='link_create_new_invoice']//div[@class='icon-box']"));
         public IWebElement create_new_bill_dashboard => driver.FindElement(By.XPath("//div[@class='dropdown-menu context-menu show']//a[@id='link_create_new_bill']//img"));
         public IWebElement create_new_expenses_dashboard => driver.FindElement(By.XPath("//a[@id='link_create_new_expense']//div[@class='icon-box']"));
+        public IWebElement create_new_receipt_dashboard => driver.FindElement(By.XPath("//a[@id='link_create_new_receipt']//div[@class='icon-box']"));
         public IWebElement create_new_Mileage_dashboard => driver.FindElement(By.XPath("//span[normalize-space()='Mileage']"));
         public IWebElement create_new_expenses_dashboard_1 => driver.FindElement(By.XPath("//div[@class='dropdown-menu context-menu show']//a[@id='link_create_new_expense']//div[@class='icon-box']"));
         public IWebElement create_new_contact_dashboard => driver.FindElement(By.XPath("//div[@class='dropdown-menu context-menu show']//a[@id='link_create_new_contact']//div[@class='icon-box']"));

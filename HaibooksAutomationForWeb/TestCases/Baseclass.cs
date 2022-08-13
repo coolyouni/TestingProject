@@ -28,9 +28,11 @@ namespace HaibooksAutomationForWeb.TestCases
     public class Baseclass
     {
         public IWebDriver driver;
-        public string homeURL = Constants.Any_link;
+        public string homeURL = Constants.main_website;
         public system_elements _systemElements1;
-        public Create_new_invoice_test_case Create_new_test_case1;
+        public T_S_4_Create_new_invoice_test_case Create_new_test_case1;
+      
+
 
 
         [SetUp]
@@ -50,8 +52,15 @@ namespace HaibooksAutomationForWeb.TestCases
                     driver.Navigate().GoToUrl(homeURL);
                 }
                 //WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
-                driver.Manage().Window.Maximize();
-            }
+
+               
+                var window = driver.Manage().Window;
+                var position = window.Position;
+                window.Minimize();
+                window.Position = position;
+                driver.Manage().Window.Maximize();            
+
+            }          
         }
 
 
@@ -104,12 +113,14 @@ namespace HaibooksAutomationForWeb.TestCases
             {
                 //var sessionIdProperty = typeof(RemoteWebDriver).GetProperty("SessionId", BindingFlags.Instance | BindingFlags.NonPublic);
                 //SessionId sessionId = sessionIdProperty.GetValue(driver, null) as SessionId;
-
-
-                var options = new ChromeOptions();
+                new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                var options = new ChromeOptions();                
                 options.AddArguments("--enable-extensions", "--ignore-certificate-errors", "general.useragent.override");
                 //options.AddArgument("headless");
-                driver = new ChromeDriver(options);
+                var directories = GetDirectories(@"C:\Users\younas.rehman\AppData\Local\Temp\Chrome");
+                Console.WriteLine("Checkpath::::" + directories.ElementAt(directories.Count - 1));
+                var pathfor_chrome = directories.ElementAt(directories.Count - 1);
+                driver = new ChromeDriver(pathfor_chrome, options);            
                 _systemElements1 = new system_elements(driver);
 
 
@@ -127,6 +138,32 @@ namespace HaibooksAutomationForWeb.TestCases
         }
 
 
+
+        public static List<string> GetDirectories(string path, string searchPattern = "*",
+       SearchOption searchOption = SearchOption.AllDirectories)
+        {
+            if (searchOption == SearchOption.TopDirectoryOnly)
+                return Directory.GetDirectories(path, searchPattern).ToList();
+
+            var directories = new List<string>(GetDirectories(path, searchPattern));
+
+            for (var i = 0; i < directories.Count; i++)
+                directories.AddRange(GetDirectories(directories[i], searchPattern));
+
+            return directories;
+        }
+
+        private static List<string> GetDirectories(string path, string searchPattern)
+        {
+            try
+            {
+                return Directory.GetDirectories(path, searchPattern).ToList();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return new List<string>();
+            }
+        }   
 
 
 

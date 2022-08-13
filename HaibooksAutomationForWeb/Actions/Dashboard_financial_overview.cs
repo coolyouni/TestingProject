@@ -28,8 +28,15 @@ namespace HaibooksAutomationForWeb.Elements
             }
             catch (Exception e) { }
             Thread.Sleep(TimeSpan.FromSeconds(3));
-            waitformee.Until(driver => _systemElements1.dashboard_leftmenu.Displayed);
-            _systemElements1.dashboard_leftmenu.Click();
+            try
+            {
+                waitformee.Until(driver => _systemElements1.dashboard_leftmenu.Displayed);
+                _systemElements1.dashboard_leftmenu.Click();
+            }
+            catch(Exception e)
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.dashboard_leftmenu);
+            }
         }
     }
 }

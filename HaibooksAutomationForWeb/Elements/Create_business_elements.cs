@@ -28,8 +28,11 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement country_code => driver.FindElement(By.Id("CountryCode"));
 
         public IWebElement address_city => driver.FindElement(By.Id("addressCity"));
+        public IWebElement business_filter_option => driver.FindElement(By.XPath("//div[@class='filter-option']"));
+        public IWebElement business_spacex => driver.FindElement(By.XPath("//span[contains(text(),'SpaceX')]"));
 
-       
+      
+
 
 
     }

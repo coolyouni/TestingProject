@@ -29,11 +29,7 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement sales_left_side => driver.FindElement(By.Id("nav_link_sales"));
         public IWebElement invoices_left_side => driver.FindElement(By.Id("sub_nav_link_invoices"));
         public IWebElement recurring_invoices_left_side => driver.FindElement(By.Id("sub_nav_link_recurring_invoices"));
-        public IWebElement archived_invoices_left_side => driver.FindElement(By.Id("sub_nav-link_archived_invoices"));
-        
-
-
-
+        public IWebElement archived_invoices_left_side => driver.FindElement(By.Id("sub_nav-link_archived_invoices"));       
 
     }
 }

@@ -23,13 +23,25 @@ using ExpectedConditions = OpenQA.Selenium.Support.UI.ExpectedConditions;
 using System.Net;
 using SoftAssert;
 using FluentAssertions;
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
     [TestClass]
-    public class signup_test_case : Baseclass
+    [TestFixture]
+    [AllureNUnit]
+    [AllureSuite("Signup Test cases")]
+    [AllureTag("Signup Test Cases")]
+
+    public class T_S_2_signup_test_case : Baseclass
     {
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_signup_for_business_owner")]
 
         [Test, Order(1)]
         public void test_case_1_verify_signup_for_business_owner()
@@ -67,7 +79,7 @@ namespace HaibooksAutomationForWeb
             _systemElements1.register_email_txtbx.SendKeys(email_value);
 
             //phone no mandatory
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            Thread.Sleep(TimeSpan.FromSeconds(4));
             SelectElement drpCountry = new SelectElement(_systemElements1.regisgter_phone_country_code_drop_down);
             drpCountry.SelectByValue("+92");
             _systemElements1.phone_no_txtbx.SendKeys(Constants.phone_no_without_code);
@@ -95,7 +107,7 @@ namespace HaibooksAutomationForWeb
             waitformee.Until(driver => _systemElements1.search_textbox.Displayed);
             }catch(Exception e){ }
 
-            if (homeURL == Constants.test_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL== Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
+            if (homeURL == Constants.test2_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL== Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
             {
                 _systemElements1.perform_searching(Constants.forward_email);
                                                 //subject body contains for clicking email
@@ -124,6 +136,7 @@ namespace HaibooksAutomationForWeb
 
             Actions click_LLC = new Actions(driver);
             click_LLC.MoveToElement(_systemElements1.limited_liability_company_type).Click().Build().Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(2));           
 
             //Search company name
             _systemElements1.search_external_companies.Click();
@@ -132,9 +145,12 @@ namespace HaibooksAutomationForWeb
             waitformee.Until(driver => _systemElements1.select_company_name.Displayed);
             Actions compnay_name = new Actions(driver);
             compnay_name.MoveToElement(_systemElements1.select_company_name).Click().Build().Perform();
-            waitformee.Until(driver => _systemElements1.Final_step_get_started.Displayed);
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("window.scrollBy(0,350)", "");
             Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.Final_step_get_started.Click();
+            waitformee.Until(driver => _systemElements1.Get_started_signup.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            _systemElements1.Get_started_signup.Click();
 
             try
             {
@@ -177,6 +193,10 @@ namespace HaibooksAutomationForWeb
             close();
         }
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_signup_for_business_advisor")]
 
         [Test, Order(2)]
         public void test_case_2_verify_signup_for_business_advisor()
@@ -245,7 +265,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.search_textbox.Displayed);
             }catch(Exception e) { }
 
-            if (homeURL == Constants.test_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL == Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
+            if (homeURL == Constants.test2_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL == Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
             {
                 _systemElements1.perform_searching(Constants.forward_email);
                 //subject body contains for clicking email
@@ -317,9 +337,11 @@ namespace HaibooksAutomationForWeb
                 driver.SwitchTo().DefaultContent();
             }catch(Exception e) { }
             waitformee.Until(driver => _systemElements1.username.Displayed);
-            _systemElements1.username.Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.username);
+            //_systemElements1.username.Click();
             waitformee.Until(driver => _systemElements1.Back_to_advisor_panel.Displayed);           
             waitformee.Until(driver => _systemElements1.My_profile.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             _systemElements1.My_profile.Click();
 
             waitformee.Until(driver => _systemElements1.My_profile_first_name.Displayed);

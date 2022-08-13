@@ -17,12 +17,23 @@ using HaibooksAutomationForWeb.MyHelper;
 using HaibooksAutomationForWeb.Constant;
 using NUnit.Framework;
 using OpenQA.Selenium.Remote;
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
     [TestClass]
-    public class Login_test_case: Baseclass
+    [TestFixture]
+    [AllureNUnit]
+    [AllureSuite("Login Test cases")]
+    [AllureTag("Login Test Cases")]
+    public class T_S_1_Login_test_case : Baseclass
     {
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_login_test_case_with_empty_email_empty_pwd")]
 
         [Test, Order(1)]
 
@@ -70,6 +81,10 @@ namespace HaibooksAutomationForWeb
         }
 
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_login_test_case_invalid_email_invalid_pwd")]
 
         [Test, Order(2)]
       
@@ -135,6 +150,11 @@ namespace HaibooksAutomationForWeb
         }
 
 
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_login_test_case_valid_email_invalid_pwd")]
+
         [Test, Order(3)]
         public void test_case_3_verify_login_test_case_valid_email_invalid_pwd()
         {
@@ -177,8 +197,13 @@ namespace HaibooksAutomationForWeb
             takesceenshot("TC_3_valid_email_invalid_pwd.png");
             close();
         }
-               
 
+
+
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_session_expire_and_login_back_to_same_page")]
 
         [Test, Order(4)]
         public void test_case_4_verify_session_expire_and_login_back_to_same_page()
@@ -210,6 +235,7 @@ namespace HaibooksAutomationForWeb
                      }
                 }
             catch(Exception e){}
+            Thread.Sleep(TimeSpan.FromSeconds(3));
             waitformee.Until(driver => _systemElements1.contacts_leftmenu.Displayed);
             _systemElements1.contacts_leftmenu.Click();
             waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);           
@@ -249,12 +275,18 @@ namespace HaibooksAutomationForWeb
             _systemElements1.password_textbox.Clear();
             _systemElements1.password_textbox.SendKeys(password);
             Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.signin_button.Click();           
+            _systemElements1.signin_button.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);
             takesceenshot("login_again_and_same_page_open.png");
             close();        
         }
 
+
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_login_test_case_valid_email_valid_pwd")]
 
         [Test, Order(5)]
         public void test_case_5_verify_login_test_case_valid_email_valid_pwd()

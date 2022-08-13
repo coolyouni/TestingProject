@@ -50,6 +50,12 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement haibooks_last_popup => driver.FindElement(By.XPath("//*[@id='intercom-container']/div/span/div/div/div/div[2]/div/div/span"));
         public IWebElement New_client => driver.FindElement(By.XPath("//a[normalize-space()='New Client']"));
         public IWebElement Add_business => driver.FindElement(By.XPath("//a[normalize-space()='Add Business']"));
+        public IWebElement business_type_LLC => driver.FindElement(By.Id("llcOption"));
+        public IWebElement business_type_sole_trader => driver.FindElement(By.Id("soleTraderOption"));
+        //public IWebElement Get_started_signup => driver.FindElement(By.XPath(" //a[contains(text(),'Get started')]"));
+        public IWebElement Get_started_signup => driver.FindElement(By.XPath("//button[@class='btn btn-primary mt-4'][text()='Get started']"));
+
         
+
     }
 }
