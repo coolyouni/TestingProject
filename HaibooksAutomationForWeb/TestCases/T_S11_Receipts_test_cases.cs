@@ -42,10 +42,14 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_count_display_in_integer_properly")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844339%7D
+        //Automation-key-45
+        //Automation-key-90        
+        //Automation-key-78
+
 
         [Test, Order(1)]
-        //Receipts >> verify that user can upload single receipt successfully
-        //HAIB-TC-16
+       
 
         public void test_case_1_Receipts_count_display_in_integer_properly()
         {
@@ -53,7 +57,7 @@ namespace HaibooksAutomationForWeb
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             Thread.Sleep(TimeSpan.FromSeconds(2));
             waitformee.Until(driver => _systemElements1.create_new_left_side.Displayed);
-            _systemElements1.create_business_with_sole_trader();
+            _systemElements1.create_business_with_sole_trader_with_vat();
             Thread.Sleep(TimeSpan.FromSeconds(2));
             _systemElements1.receipt_left_menu.Click();
             waitformee.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
@@ -92,7 +96,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_verify_uploading_successfully_message_and_move_to_review_automatically_is_showing")]
-
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:812621%7D
+        //Automation-key-21
+        //Automation-key-22
 
         [Test, Order(2)]
 
@@ -143,9 +149,12 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_verify_user_upload_single_receipt_successfully")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:804323%7D
+        //Automation-key-16
+
         [Test, Order(3)]
         //Receipts >> verify that user can upload single receipt successfully
-        //HAIB-TC-16
+     
 
         public void test_case_3_Receipts_verify_user_upload_single_receipt_successfully()
         {
@@ -254,6 +263,8 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_verify_unspported_files_showing_warning_message")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:804345%7D
+        //Automation-key-18
 
         [Test, Order(4)]
 
@@ -332,10 +343,12 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_verify_multiple_receipt_upload_successfully")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:804324%7D
+        //Automation-key-17
 
         [Test, Order(5)]
-        //Receipts >> verify that user can upload single receipt successfully
-        //HAIB-TC-16
+        //Receipts >> Receipts_verify_multiple_receipt_upload_successfully
+
 
         public void test_case_5_Receipts_verify_multiple_receipt_upload_successfully()
         {
@@ -445,10 +458,12 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_add_receipt_as_bill")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844391%7D
+        //Automation-key-50
+
 
         [Test, Order(6)]
-        //Receipts >> verify that user can add receipt as bill
-        //HAIB-TC-16
+      
 
         public void test_case_6_Receipts_add_receipt_as_bill()
         {
@@ -656,16 +671,19 @@ namespace HaibooksAutomationForWeb
                 //Net Amount
                 String net_amount_nt = String.Format("{0:0.00}", net_amount);
                 String invoice_detail_subtotal_nt = String.Format("{0:0.00}", invoice_detail_subtotal);
+                invoice_detail_subtotal_nt = invoice_detail_subtotal_nt.Trim(' ');
                 Assert.AreEqual(net_amount_nt, invoice_detail_subtotal_nt, "Comparision of Net Amount value");
-
+              
                 //vat_amount
                 String vat_amount_at = String.Format("{0:0.00}", vat_amount);
                 String invoice_detail_tax_at = String.Format("{0:0.00}", invoice_detail_tax);
+                invoice_detail_tax_at = invoice_detail_tax_at.Trim(' ');
                 Assert.AreEqual(vat_amount_at, invoice_detail_tax_at, "Comparision of VAT Tax value");
 
                 //Vat Total amount Receipt
                 String vat_total_amount_receipts = String.Format("{0:0.00}", vat_total_amount_receipt);
                 String invoice_detail_amount_dues = String.Format("{0:0.00}", invoice_detail_amount_due);
+                invoice_detail_amount_dues = invoice_detail_amount_dues.Trim(' ');
                 Assert.AreEqual(vat_total_amount_receipts, invoice_detail_amount_dues, "Comparision of VAT Total Amount receipt");
             });
         }
@@ -675,6 +693,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("Receipts_add_receipt_as_expense")]
+
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844440%7D
+        //Automation-key-67
 
         [Test, Order(7)]
         public void test_case_7_Receipts_add_receipt_as_expense()
@@ -918,17 +939,20 @@ namespace HaibooksAutomationForWeb
                 //Net Amount
                 String net_amount_nt = String.Format("{0:0.00}", net_amount);
                 String invoice_detail_subtotal_nt = String.Format("{0:0.00}", invoice_detail_subtotal);
+                invoice_detail_subtotal_nt = invoice_detail_subtotal_nt.Trim(' ');
                 Assert.AreEqual(net_amount_nt, invoice_detail_subtotal_nt, "Comparision of Net Amount value");
 
                 //vat_amount
                 String vat_amount_at = String.Format("{0:0.00}", vat_amount);
                 String invoice_detail_tax_at = String.Format("{0:0.00}", invoice_detail_tax);
+                invoice_detail_tax_at = invoice_detail_tax_at.Trim(' ');
                 Assert.AreEqual(vat_amount_at, invoice_detail_tax_at, "Comparision of VAT Tax value");
 
                 //Vat Total amount Receipt
                 String vat_total_amount_receipts = String.Format("{0:0.00}", vat_total_amount_receipt);
                 String invoice_detail_amount_dues = String.Format("{0:0.00}", invoice_detail_amount_due);
-                Assert.AreEqual(vat_total_amount_receipts, invoice_detail_amount_dues, "Comparision of VAT Total Amount receipt");
+                invoice_detail_amount_dues = invoice_detail_amount_dues.Trim(' ');
+                Assert.AreEqual(vat_total_amount_receipts, invoice_detail_amount_dues, "Comparision of VAT Total Amount receipt due");
             });
 
         }
@@ -997,7 +1021,7 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
             waitformee.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-
+            Thread.Sleep(TimeSpan.FromSeconds(7));
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.ToReview_tab);
             Thread.Sleep(TimeSpan.FromSeconds(3));
             bool count_increament;
@@ -1108,7 +1132,7 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
             waitformee.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-
+            Thread.Sleep(TimeSpan.FromSeconds(7));
 
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.ToReview_tab);
             Thread.Sleep(TimeSpan.FromSeconds(3));
@@ -1167,6 +1191,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("scan_single_receipt_from_bill")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844343%7D
+        ////Automation-key-48
+
 
         [Test, Order(10)]
         public void test_case10_scan_single_receipt_from_bill()
@@ -1220,7 +1247,7 @@ namespace HaibooksAutomationForWeb
             _systemElements1.sales_add_new.Click();
             waitformee.Until(driver => _systemElements1.purchase_add_bill.Displayed);          
             _systemElements1.purchase_add_bill.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));            
+            Thread.Sleep(TimeSpan.FromSeconds(4));            
              waitformee.Until(driver => _systemElements1.scan_receipt_bill.Displayed);
 
             _systemElements1.file_upload.SendKeys(Constants.single_file_upload_path);
@@ -1236,7 +1263,11 @@ namespace HaibooksAutomationForWeb
             Thread.Sleep(TimeSpan.FromSeconds(3));
 
             waitformee.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-            waitformee.Until(driver => _systemElements1.ToReview_tab.Displayed);
+            try
+            {
+                waitformee.Until(driver => _systemElements1.ToReview_tab.Displayed);
+            }
+            catch(Exception e) { }
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.ToReview_tab);
             Thread.Sleep(TimeSpan.FromSeconds(3));
             bool count_increament;
@@ -1290,6 +1321,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("scan_multiple_receipt_from_bill")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844343%7D
+        ////Automation-key-48
+
 
         [Test, Order(11)]
         public void test_case11_scan_multiple_receipt_from_bill()
@@ -1356,7 +1390,7 @@ namespace HaibooksAutomationForWeb
             {
                 Console.WriteLine("Uploading successfully message is not showing");
             }
-            Thread.Sleep(TimeSpan.FromSeconds(6));
+            Thread.Sleep(TimeSpan.FromSeconds(8));
 
             waitformee.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));          
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.ToReview_tab);          
@@ -1412,6 +1446,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("scan_single_receipt_from_expense")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844344%7D
+        //Automation-key-49
+
 
         [Test, Order(12)]
         public void test_case12_scan_single_receipt_from_expense()
@@ -1533,6 +1570,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("scan_multiple_receipt_from_bill")]
+
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:844344%7D
+        //Automation-key-49
 
         [Test, Order(13)]
         public void test_case13_scan_multiple_receipt_from_expense()

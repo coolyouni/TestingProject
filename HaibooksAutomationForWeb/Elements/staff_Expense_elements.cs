@@ -78,7 +78,8 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement issue_date_saved_value => driver.FindElement(By.Id("date-value"));
         public IWebElement mileage_number_saved_value => driver.FindElement(By.Id("document-number-value"));
         public IWebElement currency_saved_value => driver.FindElement(By.XPath("//small[normalize-space()='GBP']"));
-
+        public IWebElement currency_value => driver.FindElement(By.Id("currency-value"));
+        
         public IWebElement numberof_miles_saved_value => driver.FindElement(By.Id("numberof"));
         public IWebElement mileage_expense_saved_value => driver.FindElement(By.Id("amount-value"));
         public IWebElement vehicle_saved_value => driver.FindElement(By.Id("vehicle-value"));
@@ -91,7 +92,8 @@ namespace HaibooksAutomationForWeb.Elements
         //public IWebElement mileage_number_showint_top => driver.FindElement(By.XPath("//div[@class='sticky']//ul[@class='list-unstyled float-left']//li[1]"));
         public IWebElement mileage_status_showing_at_top => driver.FindElement(By.XPath("//span[contains(text(),'Unpaid')]"));
         public IWebElement staff_label => driver.FindElement(By.XPath("//label[normalize-space()='Staff']"));
-        
 
+        public IWebElement currencyDropdown => driver.FindElement(By.Id("currencyDropdown"));
+        
     }
 }

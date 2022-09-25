@@ -16,6 +16,7 @@ using HaibooksAutomationForWeb.Elements;
 using HaibooksAutomationForWeb.MyHelper;
 using HaibooksAutomationForWeb.Constant;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 using OpenQA.Selenium.Remote;
 using NUnit.Allure.Core;
 using NUnit.Allure.Attributes;
@@ -34,6 +35,8 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_login_test_case_with_empty_email_empty_pwd")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772995%7D
+        //Automation-key-4
 
         [Test, Order(1)]
 
@@ -85,6 +88,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_login_test_case_invalid_email_invalid_pwd")]
+
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:770888%7D
+        //Automation-key-2
 
         [Test, Order(2)]
       
@@ -155,6 +161,9 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify_login_test_case_valid_email_invalid_pwd")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772996%7D
+        //Automation-key-5
+
         [Test, Order(3)]
         public void test_case_3_verify_login_test_case_valid_email_invalid_pwd()
         {
@@ -199,14 +208,46 @@ namespace HaibooksAutomationForWeb
         }
 
 
-
         [AllureSeverity(SeverityLevel.critical)]
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
-        [AllureStory("verify_session_expire_and_login_back_to_same_page")]
+        [AllureStory("verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:886164%7D
+        //Automation-key-116
+        //Automation-key-118
         [Test, Order(4)]
-        public void test_case_4_verify_session_expire_and_login_back_to_same_page()
+        public void test_case_4_verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+            bool forgot_password = _systemElements1.Forgot_password.Displayed;
+            _systemElements1.Forgot_password.Click();
+            waitformee.Until(driver => _systemElements1.email_address_send_button.Displayed);
+            waitformee.Until(driver => _systemElements1.back_to_login_button.Displayed);
+            _systemElements1.back_to_login_button.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            bool signin_button_showing = _systemElements1.signin_button.Displayed;
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(true, forgot_password, "Forgot password link should be showing");
+                Assert.AreEqual(true, signin_button_showing, "Verify user navigate back to login page");
+            });
+        }
+
+
+
+            [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_session_expire_and_login_back_to_same_page")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772999%7D
+        ////Automation-key-6
+
+
+
+        [Test, Order(5)]
+        public void test_case_5_verify_session_expire_and_login_back_to_same_page()
         {           
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
             waitformee.Until(driver => _systemElements1.signin_button.Displayed);           
@@ -288,8 +329,11 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify_login_test_case_valid_email_valid_pwd")]
 
-        [Test, Order(5)]
-        public void test_case_5_verify_login_test_case_valid_email_valid_pwd()
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:764823%7D
+        //Automation-key-1
+
+        [Test, Order(6)]
+        public void test_case_6_verify_login_test_case_valid_email_valid_pwd()
         {
             
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
@@ -357,11 +401,11 @@ namespace HaibooksAutomationForWeb
         //    WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         //    waitformee.Until(driver => _systemElements1.signin_button.Displayed);
 
-        //    if (homeURL == Constants.main_website)
+        //    if (loginurl == Constants.main_website)
         //    {
         //        _systemElements1.verifying_login_with_data_driven(4, 1, 4, 2);
         //    }
-        //    else if (homeURL == Constants.test_website)
+        //    else if (loginurl == Constants.test_website)
         //    {
         //        _systemElements1.verifying_login_with_data_driven(5, 1, 5, 2);
         //    }

@@ -177,6 +177,7 @@ namespace HaibooksAutomationForWeb.Elements
 
         public void perform_select_SpaceX()
         {
+            _systemElements1 = new system_elements(driver);
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             bool business_spacex_shoiwng = _systemElements1.business_space_x_showing();
             if (business_spacex_shoiwng == false)
@@ -196,6 +197,35 @@ namespace HaibooksAutomationForWeb.Elements
         }
 
 
+
+        public bool display_items_summary_with_vat()
+        {
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.XPath("//div[@class='col-md-4'][3]/table[@id='bill-items-summary-with-vat']")));
+            if (list_for_element1.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public bool display_saved_items_summary_with_vat()
+        {
+            List<IWebElement> list_for_element1 = new List<IWebElement>();
+            list_for_element1.AddRange(driver.FindElements(By.XPath("//div[@class='offset-9 col-3']/table/tbody/tr/td[@class='label']")));
+            if (list_for_element1.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
     }

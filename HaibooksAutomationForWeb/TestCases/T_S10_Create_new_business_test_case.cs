@@ -45,6 +45,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_create_new_business_with_vat")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393526%7D
+        //Automation-key-432
+
 
         [Test, Order(1)]
         public void test_case_1_verify_create_new_business_with_vat()
@@ -157,15 +160,15 @@ namespace HaibooksAutomationForWeb
             //verifying that added business name is showing or not
             //string xpath_for_business = "//div[@class='filter-option-inner-inner']//span[contains(text(),'" + business_full_name + "')]";
             //bool selected_busineess_showing = driver.FindElement(By.XPath(xpath_for_business)).Displayed;
+            Thread.Sleep(TimeSpan.FromSeconds(4));
 
-            
             string selected_value = driver.FindElement(By.CssSelector("div[class='filter-option-inner-inner'] span")).Text;
            //string selected_value = driver.FindElement(By.XPath("//*[@id='select-mode']/optgroup[1]/option[1]")).GetAttribute("data-content");
             
             Console.WriteLine(selected_value);
 
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            if (homeURL == Constants.main_website)
+            if (loginurl == Constants.main_website)
             {
 
                 if (selected_value != business_full_name)
@@ -270,6 +273,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_vat_showing_in_document_for_uncheck_VAT_business")]
+
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393533%7D
+        //Automation-key-433
 
         [Test, Order(2)]
         public void test_case_2_verify_vat_showing_in_document_for_uncheck_VAT_business()
@@ -405,9 +411,9 @@ namespace HaibooksAutomationForWeb
                 _systemElements1.create_new_left_side.Click();
                 waitformee.Until(driver => _systemElements1.create_new_invoice_dashboard.Displayed);
                 _systemElements1.create_new_invoice_dashboard.Click();
-                waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+                waitformee.Until(PRED => _systemElements1.select_contact.Displayed);
 
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(TimeSpan.FromSeconds(4));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetCssValue("display");
                 Console.WriteLine("display"+display_vat_showing);
@@ -467,7 +473,8 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
                 _systemElements1.issue_date.Clear();
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
-                _systemElements1.issue_date.Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.issue_date);
+               // _systemElements1.issue_date.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(1));
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
                 _systemElements1.issue_date.SendKeys(today_date_plus);
@@ -512,6 +519,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.create_new_bill_dashboard.Displayed);
                 _systemElements1.create_new_bill_dashboard.Click();
                 waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+                Thread.Sleep(TimeSpan.FromSeconds(4));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetAttribute("display");
                 if (display_vat_showing == "inline-block")
@@ -555,7 +563,8 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
                 _systemElements1.issue_date.Clear();
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
-                _systemElements1.issue_date.Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.issue_date);
+               // _systemElements1.issue_date.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(1));
                 waitformee.Until(ExpectedConditions.ElementToBeClickable(_systemElements1.issue_date));
                 _systemElements1.issue_date.SendKeys(today_date_plus);
@@ -596,9 +605,10 @@ namespace HaibooksAutomationForWeb
             _systemElements1.create_new_left_side.Click();
             waitformee.Until(driver => _systemElements1.create_new_expenses_dashboard.Displayed);
             _systemElements1.create_new_expenses_dashboard.Click();
-            waitformee.Until(driver => _systemElements1.select_contact.Displayed);
-            //Verifying VAT RATE is diplaying
-            string display_vat_showing = _systemElements1.display_vat_rate.GetAttribute("display");
+            waitformee.Until(pred => _systemElements1.select_contact.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+                //Verifying VAT RATE is diplaying
+                string display_vat_showing = _systemElements1.display_vat_rate.GetAttribute("display");
             if (display_vat_showing == null)
             {
                 Console.WriteLine("Displaying VAT RATE DROP Down for Expense document");
@@ -680,6 +690,8 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_vat_showing_in_document_for_registered_vat_business")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details-edit-steps&ac.params=%7B%22caseId%22:1393537%7D
+        //Automation-key-434
 
         [Test, Order(3)]
         public void test_case_3_verify_vat_showing_in_document_for_registered_vat_business()
@@ -838,6 +850,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.create_new_bill_dashboard.Displayed);
                 _systemElements1.create_new_bill_dashboard.Click();
                 waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+                Thread.Sleep(TimeSpan.FromSeconds(4));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetAttribute("display");
                 if (display_vat_showing == "inline-block")
@@ -921,6 +934,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.create_new_expenses_dashboard.Displayed);
                 _systemElements1.create_new_expenses_dashboard.Click();
                 waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+                Thread.Sleep(TimeSpan.FromSeconds(3));
                 //Verifying VAT RATE is diplaying
                 string display_vat_showing = _systemElements1.display_vat_rate.GetAttribute("display");
                 if (display_vat_showing == "inline-block")

@@ -58,13 +58,20 @@ namespace HaibooksAutomationForWeb.Constant
         public const string Firefox = "firefox";        
 
         ////////////////////////////////////////////URL ///////////////////////////////////
-        public const string main_website = "https://haibooks.com/Login";
-        public const string test2_website = "https://test2.haibooks.com/login";
+        public const string login_main_website = "https://haibooks.com/Login";
+        public const string login_test2_website = "https://test2.haibooks.com/login";
         public const string mailinator_URL = "https://mailinator.com";
-        public const string receipt_site = "https://testreceipts.haibooks.com/login";
-        public const string temp_test_environment = "https://haib-3713.test.haibooks.com/Login";
-        public const string temp_test_3569_environment = "https://haib-3569.test.haibooks.com/Login";
-        public const string Any_link = "https://haib-3965.test.haibooks.com/Login";
+        public const string login_receipt_site = "https://testreceipts.haibooks.com/login";
+        public const string login_temp_test_environment = "https://haib-3713.test.haibooks.com/Login";
+        public const string login_temp_test_3569_environment = "https://haib-3569.test.haibooks.com/Login";
+        public const string login_Any_link = "https://haib-3982.test.haibooks.com/Login";
+
+        public const string main_website = "https://haibooks.com";
+        public const string test2_website = "https://test2.haibooks.com";       
+        public const string receipt_site = "https://testreceipts.haibooks.com";
+        public const string temp_test_environment = "https://haib-3713.test.haibooks.com";
+        public const string temp_test_3569_environment = "https://haib-3569.test.haibooks.com";
+        public const string Any_link = "https://haib-3982.test.haibooks.com";
 
 
         //Registration Data///////////////////////////////////////
@@ -83,6 +90,8 @@ namespace HaibooksAutomationForWeb.Constant
         public const string Company_Name = "MCA ACCOUNTANTS LIMITED";
         public const string Company_Name_1 = "MACRO DECISIONS LLP";
         public const string business_type = "UK Sole Trader";
+
+        public const string password_less_than_6_char = "pakis";
 
 
         //Account type values
@@ -103,6 +112,8 @@ namespace HaibooksAutomationForWeb.Constant
         public const string bill_creation = "bill";
         public const string expense_creation = "expense";
         public const string mileage = "mileage";
+        public const string invoice_creation_without_vat = "invoice_without_vat";
+
         //sheet no
         public const int shhet_1 = 1;
         public const int shhet_2 = 2;
@@ -113,6 +124,7 @@ namespace HaibooksAutomationForWeb.Constant
         public const int shhet_8 = 8;
         public const int shhet_9 = 9;
         public const int shhet_10 = 10;
+        public const int shhet_11 = 11;
         //Adding contacts from left mneu
         public const string adding_contact_left_menu = "contact_left_menu";
 
@@ -173,6 +185,14 @@ namespace HaibooksAutomationForWeb.Constant
 
         //shares
         public const string number_of_shares = "10";
+
+
+        public const string pwd_validation_error = "Your password should be at least 6 characters.\r\nYour password should have at least one uppercase letter.";
+
+        //Global Variables
+        public static String email_value_registered;
+        public static String business_name_without_vat;
+
 
     }
 }

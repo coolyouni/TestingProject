@@ -39,7 +39,7 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement subject_body_forwading_email => driver.FindElement(By.XPath("//td[normalize-space()='FW: Activation Email']"));
         
         public IWebElement yes_its_me_lets_get_started_btn => driver.FindElement(By.XPath("//a[normalize-space()=\"Yes, it's me - let's get started!\"]"));
-        public IWebElement limited_liability_company_type => driver.FindElement(By.XPath(" //span[normalize-space()='UK Limited Liability Company']"));
+        public IWebElement limited_liability_company_type => driver.FindElement(By.XPath("//span[normalize-space()='Limited Liability Company']"));
         public IWebElement uk_sole_trader_company_type => driver.FindElement(By.Id("soleTraderOption"));
         public IWebElement search_external_companies => driver.FindElement(By.Id("externalCompanies"));
         public IWebElement select_company_name => driver.FindElement(By.XPath("//a[normalize-space()='MCA ACCOUNTANTS LIMITED']"));
@@ -54,7 +54,7 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement business_type_sole_trader => driver.FindElement(By.Id("soleTraderOption"));
         //public IWebElement Get_started_signup => driver.FindElement(By.XPath(" //a[contains(text(),'Get started')]"));
         public IWebElement Get_started_signup => driver.FindElement(By.XPath("//button[@class='btn btn-primary mt-4'][text()='Get started']"));
-
+        public IWebElement unique_email => driver.FindElement(By.Id("registerEmailValidation"));
         
 
     }

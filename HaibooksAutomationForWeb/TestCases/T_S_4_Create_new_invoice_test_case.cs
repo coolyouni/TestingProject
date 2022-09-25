@@ -41,17 +41,25 @@ namespace HaibooksAutomationForWeb
 
     public class T_S_4_Create_new_invoice_test_case : Baseclass
     {
+        
         [AllureSeverity(SeverityLevel.critical)]
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("create_new_invoice_without_file_attachment")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:793869%7D
+        //Automation-key-8
+
         [Test, Order(1)]
 
-        public void test_case_1_create_new_invoice_without_file_attachment()
+        public void test_case_1_create_new_invoice_without_file_attachment_with_VAT()
         {
             _systemElements1.user_already_login();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            _systemElements1.perform_select_SpaceX();
+            waitformee.Until(PRED => _systemElements1.dashboard_leftmenu.Displayed);
+            _systemElements1.dashboard_leftmenu.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(3));
             waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
             _systemElements1.create_new_dashboard.Click();
             waitformee.Until(driver => _systemElements1.create_new_invoice_dashboard.Displayed);
@@ -100,6 +108,9 @@ namespace HaibooksAutomationForWeb
                                                                subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
                                                                status, invoice_created_by, price_bill_expected);
 
+
+            bool display_items_summary_with_vat = _systemElements1.display_items_summary_with_vat();
+
             //click on saved And approve button
             _systemElements1.saved_and_approve_btn.Click();
 
@@ -118,23 +129,31 @@ namespace HaibooksAutomationForWeb
             string invoice_vat_total = _systemElements1.global_invoice_vat_total;
             string invoice_detail_total_amount = _systemElements1.global_invoice_detail_total_amount;
             string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal;
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
             string invoice_detail_tax = _systemElements1.global_invoice_detail_tax;
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
             string invoice_detail_total = _systemElements1.global_invoice_detail_total;
+            invoice_detail_total = invoice_detail_total.Trim(' ');
             string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid;
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
             string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due;
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
             string invoice_detail_comment = _systemElements1.global_invoice_detail_comment;
             string invoice_detail_description = _systemElements1.global_invoice_detail_description;
             string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status;
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
+            invoice_detail_price = invoice_detail_price.Trim(' ');
 
-
+            bool display_saved_item_summary_gui = _systemElements1.display_saved_items_summary_with_vat();
 
             _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_2, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
                                                                invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
                                                                 invoice_detail_subtotal, invoice_detail_tax, invoice_detail_total, invoice_detail_amount_paid, invoice_detail_amount_due, invoice_detail_comment, invoice_detail_description,
                                                                 invoice_detail_invoice_status, invoice_detail_invoice_created, invoice_detail_price);
 
+
+           
 
             //Console.WriteLine("Total Vat Expected: Real= " + tota_value_expected + ": " + vat_toal_value);
             //Console.WriteLine("Total Amount Expected: Real= " + total_amount_expected + ": " + total_amount_value);
@@ -148,31 +167,31 @@ namespace HaibooksAutomationForWeb
             Assert.Multiple(() =>
             {
 
-                Assert.AreEqual(tota_value_expected, vat_toal_value);
-                Assert.AreEqual(total_amount_expected, total_amount_value);
-                Assert.AreEqual(price_bill_expected, price_bill_actual);
-                Assert.AreEqual(Net_Amount_expected, subtotal_str);
-                Assert.AreEqual(vat_tax_value, tax);
-                Assert.AreEqual(total_value_expected, total_value_actual);
-                Assert.AreEqual("0.00", amount_paid);
-                Assert.AreEqual(amount_due, amount_due_actual);
+                Assert.AreEqual(tota_value_expected, vat_toal_value, "Total Value");
+                Assert.AreEqual(total_amount_expected, total_amount_value, "Total Amount");
+                Assert.AreEqual(price_bill_expected, price_bill_actual,"Price bill");
+                Assert.AreEqual(Net_Amount_expected, subtotal_str, "Net Amount");
+                Assert.AreEqual(vat_tax_value, tax, "Vat");
+                Assert.AreEqual(total_value_expected, total_value_actual, "Total Value");
+                Assert.AreEqual("0.00", amount_paid, "Amount paid");
+                Assert.AreEqual(amount_due, amount_due_actual, "Amount Due");
 
                 //////////////////////////////////////Verifying save data//////////////
                 ///
 
-                Assert.AreEqual(selected_text_contact_info, contact_saved);
+                Assert.AreEqual(selected_text_contact_info, contact_saved, "Contact info");
 
                 //Verify issue date
-                Assert.AreEqual(today_date, invoice_issue_date);
+                Assert.AreEqual(today_date, invoice_issue_date, "Issue date");
 
                 //verifying due date
-                Assert.AreEqual(addition_days, invoice_due_date);
+                Assert.AreEqual(addition_days, invoice_due_date, "Due date");
 
                 //custom
-                Assert.AreEqual("Custom", invoice_custom);
+                Assert.AreEqual("Custom", invoice_custom, "custom");
 
                 //custom term days
-                Assert.AreEqual("30", invoice_term_days);
+                Assert.AreEqual("30", invoice_term_days, "Invoice terms days");
 
                 //invoice number
                 // Assert.AreEqual(invoice_number, detail_invoice_number);
@@ -181,34 +200,34 @@ namespace HaibooksAutomationForWeb
                 Assert.AreEqual("Turnover", account_type);
 
                 //invoice_detail_unit_cost
-                Assert.AreEqual(unit_cost_value2, invoice_detail_unit_cost);
+                Assert.AreEqual(unit_cost_value2, invoice_detail_unit_cost, "Unit cost");
 
                 //invoice_quantity
-                Assert.AreEqual(quantity_value2, invoice_quantity);
+                Assert.AreEqual(quantity_value2, invoice_quantity, "Quantity");
 
                 //invoice_vat_rate
                 //Assert.AreEqual(vat_value_20, invoice_vat_rate);
 
                 //invoice_vat_total
-                Assert.AreEqual(vat_toal_value, invoice_vat_total);
+                Assert.AreEqual(vat_toal_value, invoice_vat_total, "Vat total value");
 
                 //invoice_detail_total_amount
-                Assert.AreEqual(total_amount_expected, invoice_detail_total_amount);
+                Assert.AreEqual(total_amount_expected, invoice_detail_total_amount, "Total Amount");
 
                 //invoice_detail_subtotal
-                Assert.AreEqual(subtotal_str, invoice_detail_subtotal);
+                Assert.AreEqual(subtotal_str, invoice_detail_subtotal, "Invoice detail");
 
                 //invoice_detail_tax
-                Assert.AreEqual(tax, invoice_detail_tax);
+                Assert.AreEqual(tax, invoice_detail_tax, "Tax");
 
                 //invoice_detail_total
-                Assert.AreEqual(total_value_expected, invoice_detail_total);
+                Assert.AreEqual(total_value_expected, invoice_detail_total, "Invoice detail total");
 
                 //invoice_detail_amount_paid
-                Assert.AreEqual(amount_paid, invoice_detail_amount_paid);
+                Assert.AreEqual(amount_paid, invoice_detail_amount_paid, "Invoice detail amount paid");
 
                 //invoice_detail_amount_due
-                Assert.AreEqual(amount_due, invoice_detail_amount_due);
+                Assert.AreEqual(amount_due, invoice_detail_amount_due, "Invoice detail amount Due");
 
 
                 //invoice_detail_comment
@@ -232,8 +251,14 @@ namespace HaibooksAutomationForWeb
                 }
 
                 //invoice_detail_price
-                Assert.AreEqual(price_bill_expected, invoice_detail_price);
+                Assert.AreEqual(price_bill_expected, invoice_detail_price, "Invoice detil price");
 
+                //Display Items summary gui on right place
+                Assert.AreEqual(true, display_items_summary_with_vat, "Displaying invoice Gui on correct place");
+
+                //Display saved item summary gui onr ight place
+                Assert.AreEqual(true, display_saved_item_summary_gui, "Display saved item summary gui onr ight place");
+                
 
             });
 
@@ -252,10 +277,12 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("create_new_invoice_with_file_attachment")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:793874%7D
+        //Automation-key-9
 
         [Test, Order(2)]
 
-        public void test_case_2_create_new_invoice_with_file_attachment()
+        public void test_case_2_create_new_invoice_with_file_attachment_with_VAT()
         {
           
             _systemElements1.user_already_login();
@@ -342,6 +369,8 @@ namespace HaibooksAutomationForWeb
                                                                subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
                                                                status, invoice_created_by, price_bill_expected);
 
+            bool display_items_summary_with_vat = _systemElements1.display_items_summary_with_vat();
+
             //click on saved And approve button
             _systemElements1.saved_and_approve_btn.Click();
 
@@ -359,17 +388,35 @@ namespace HaibooksAutomationForWeb
             string invoice_vat_rate = _systemElements1.global_invoice_vat_rate;
             string invoice_vat_total = _systemElements1.global_invoice_vat_total;
             string invoice_detail_total_amount = _systemElements1.global_invoice_detail_total_amount;
+            //string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal;
+            //string invoice_detail_tax = _systemElements1.global_invoice_detail_tax;
+            //string invoice_detail_total = _systemElements1.global_invoice_detail_total;
+            //string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid;
+            //string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due;
+            //string invoice_detail_comment = _systemElements1.global_invoice_detail_comment;
+            //string invoice_detail_description = _systemElements1.global_invoice_detail_description;
+            //string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status;
+            //string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
+            //string invoice_detail_price = _systemElements1.global_invoice_detail_price;
+
             string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal;
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
             string invoice_detail_tax = _systemElements1.global_invoice_detail_tax;
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
             string invoice_detail_total = _systemElements1.global_invoice_detail_total;
+            invoice_detail_total = invoice_detail_total.Trim(' ');
             string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid;
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
             string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due;
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
             string invoice_detail_comment = _systemElements1.global_invoice_detail_comment;
             string invoice_detail_description = _systemElements1.global_invoice_detail_description;
             string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status;
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
+            invoice_detail_price = invoice_detail_price.Trim(' ');
 
+            bool display_saved_item_summary_gui = _systemElements1.display_saved_items_summary_with_vat();
 
 
             _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_5, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
@@ -488,9 +535,16 @@ namespace HaibooksAutomationForWeb
 
             }
 
-          
-            //invoice_detail_price
-            Assert.AreEqual(price_bill_expected, invoice_detail_price);
+                //Display Items summary gui on right place
+                Assert.AreEqual(true, display_items_summary_with_vat, "Displaying invoice Gui on correct place");
+
+                //Display saved item summary gui onr ight place
+                Assert.AreEqual(true, display_saved_item_summary_gui, "Display saved item summary gui onr ight place");
+
+
+
+                //invoice_detail_price
+                Assert.AreEqual(price_bill_expected, invoice_detail_price);
 
             if(row_size-1 == 1)
             {
@@ -502,10 +556,503 @@ namespace HaibooksAutomationForWeb
             }
 
             });
-            close();
+          
+        }
+
+        [Test, Order(3)]
+        public void test_case_3_create_new_invoice_without_file_attachment_without_VAT()
+        {
+            _systemElements1.user_already_login();
+            bool already_logged = _systemElements1.global_logged_in_true_false;
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+            if (already_logged == true)
+            {
+                _systemElements1.perform_click_to_dashboard();
+            }
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
+            _systemElements1.create_business_with_sole_trader_withOut_vat();
+            String business_name_w_out_Vat = _systemElements1.global_created_business_name;
+            if (Constants.business_name_without_vat == null)
+            {
+              _systemElements1.receiving_one_value_from_sheet(Constants.shhet_2,2,24);
+                Constants.business_name_without_vat = _systemElements1.global_value;
+            }
+
+
+            waitformee.Until(PRED => _systemElements1.dashboard_leftmenu.Displayed);
+            _systemElements1.dashboard_leftmenu.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
+            _systemElements1.create_new_dashboard.Click();
+            waitformee.Until(driver => _systemElements1.create_new_invoice_dashboard.Displayed);
+            _systemElements1.create_new_invoice_dashboard.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.select_contact);
+            //_systemElements1.select_contact.Click();
+
+            _systemElements1.perform_adding_invoice_bill_expense_mileage_without_vat(Constants.invoice_creation);
+
+            string selected_text_contact_info = _systemElements1.selected_text_contact_info1_wo_vat;
+            string today_date = _systemElements1.global_today_date_wo_vat;
+            string addition_days = _systemElements1.global_addition_days_wo_vat;
+            string terms = _systemElements1.global_terms_wo_vat;
+            int terms_days = _systemElements1.global_terms_days_wo_vat;
+            int invoice_number = _systemElements1.global_invoice_number_wo_vat;
+            string account_type_sales = _systemElements1.global_sales_turnover_value_wo_vat;
+            string unit_cost_value2 = _systemElements1.global_unit_cost_value_wo_vat;
+            string quantity_value2 = _systemElements1.global_Quantity_wo_vat;
+            string vat_percentage = _systemElements1.global_vat_value_20_vat_wo_vat;
+            string vat_toal_value = _systemElements1.global_toal_value_wo_vat;
+            string total_amount_expected = _systemElements1.global_total_amount_expected_wo_vat;
+            string subtotal_str = _systemElements1.global_subtotal_wo_vat;
+            string tax = _systemElements1.global_tax_wo_vat;
+            string total_value_expected = _systemElements1.global_total_value_expected_wo_vat;
+            string amount_paid = _systemElements1.global_amount_paid_wo_vat;
+            string amount_due = _systemElements1.global_amount_due_wo_vat;
+            string comment_added = _systemElements1.global_comment_added_wo_vat;
+            string description = _systemElements1.global_description_wo_vat;
+            string status = _systemElements1.global_status_wo_vat;
+            string invoice_created_by = _systemElements1.global_invoice_created_wo_vat;
+            string price_bill_expected = _systemElements1.global_price_bill_expected_wo_vat;
+            string tota_value_expected = _systemElements1.global_tota_value_expected_wo_vat;
+            string total_amount_value = _systemElements1.global_total_amount_value_wo_vat;
+            string price_bill_actual = _systemElements1.global_price_bill_actual_wo_vat;
+            string Net_Amount_expected = _systemElements1.global_Net_Amount_expected_wo_vat;
+            string vat_tax_value = _systemElements1.global_vat_tax_value_wo_vat;
+            string total_value_actual = _systemElements1.global_total_value_actual_wo_vat;
+            string amount_due_actual = _systemElements1.global_amount_due_actual_wo_vat;
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_11, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
+                                                               Constants.unit_cost_value, Constants.Quantity, Constants.vat_value_20_vat, vat_toal_value, total_amount_expected,
+                                                               subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
+                                                               status, invoice_created_by, price_bill_expected);
+
+
+            bool display_items_summary_with_vat = _systemElements1.display_items_summary_with_vat();
+
+            //click on saved And approve button
+            _systemElements1.saved_and_approve_btn.Click();
+
+            _systemElements1.perform_saved_invoice_bill_expense_mileage_without_vat(Constants.invoice_creation);
+
+            string contact_saved = _systemElements1.global_contact_saved_wo_vat;
+            string invoice_issue_date = _systemElements1.global_invoice_issue_date_wo_vat;
+            string invoice_due_date = _systemElements1.global_invoice_due_date_wo_vat;
+            string invoice_custom = _systemElements1.global_invoice_custom_wo_vat;
+            string invoice_term_days = _systemElements1.global_invoice_term_days_wo_vat;
+            string detail_invoice_number = _systemElements1.global_detail_invoice_number_wo_vat;
+            string account_type = _systemElements1.global_account_types_wo_vat;
+            string invoice_detail_unit_cost = _systemElements1.global_invoice_detail_unit_cost_wo_vat;
+            string invoice_quantity = _systemElements1.global_invoice_quantity_wo_vat;
+            string invoice_vat_rate = _systemElements1.global_invoice_vat_rate_wo_vat;
+            string invoice_vat_total = _systemElements1.global_invoice_vat_total_wo_vat;
+            string invoice_detail_total_amount = _systemElements1.global_invoice_detail_total_amount_wo_vat;
+            string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal_wo_vat;
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
+            string invoice_detail_tax = _systemElements1.global_invoice_detail_tax_wo_vat;
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
+            string invoice_detail_total = _systemElements1.global_invoice_detail_total_wo_vat;
+            invoice_detail_total = invoice_detail_total.Trim(' ');
+            string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid_wo_vat;
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
+            string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due_wo_vat;
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
+            string invoice_detail_comment = _systemElements1.global_invoice_detail_comment_wo_vat;
+            string invoice_detail_description = _systemElements1.global_invoice_detail_description_wo_vat;
+            string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status_wo_vat;
+            string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created_wo_vat;
+            string invoice_detail_price = _systemElements1.global_invoice_detail_price_wo_vat;
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+
+            bool display_saved_item_summary_gui = _systemElements1.display_saved_items_summary_with_vat();
+
+            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_11, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
+                                                               invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
+                                                                invoice_detail_subtotal, invoice_detail_tax, invoice_detail_total, invoice_detail_amount_paid, invoice_detail_amount_due, invoice_detail_comment, invoice_detail_description,
+                                                                invoice_detail_invoice_status, invoice_detail_invoice_created, invoice_detail_price);
+
+
+
+
+            //Console.WriteLine("Total Vat Expected: Real= " + tota_value_expected + ": " + vat_toal_value);
+            //Console.WriteLine("Total Amount Expected: Real= " + total_amount_expected + ": " + total_amount_value);
+            //Console.WriteLine("Price bill Expected: Real= " + price_bill_expected + ": " + price_bill_actual);
+            //Console.WriteLine("Net Amount Expected: Real= " + Net_Amount_expected + ": " + subtotal_str);
+            //Console.WriteLine("Vat Tax Value Expected: Real= " + vat_tax_value + ": " + tax);
+            //Console.WriteLine("Total Value Expected: Real=" + total_value_expected + ": " + total_value_actual);
+            //Console.WriteLine("Amount Paid Expected: Real=" + "0.00" + ": " + amount_paid);
+            //Console.WriteLine("Amount Due Expected: Real=" + amount_due + ": " + amount_due_actual);
+
+            Assert.Multiple(() =>
+            {
+
+               // Assert.AreEqual(tota_value_expected, vat_toal_value, "Total Value");
+                Assert.AreEqual(total_amount_expected, total_amount_value, "Total Amount");
+                Assert.AreEqual(price_bill_expected, price_bill_actual, "Price bill");
+                Assert.AreEqual(Net_Amount_expected, subtotal_str, "Net Amount");
+                Assert.AreEqual(vat_tax_value, tax, "Vat");
+                Assert.AreEqual(total_value_expected, total_value_actual, "Total Value expected");
+                Assert.AreEqual("0.00", amount_paid, "Amount paid");
+                Assert.AreEqual(amount_due, amount_due_actual, "Amount Due");
+
+                //////////////////////////////////////Verifying save data//////////////
+                ///
+
+                Assert.AreEqual(selected_text_contact_info, contact_saved, "Contact info");
+
+                //Verify issue date
+                Assert.AreEqual(today_date, invoice_issue_date, "Issue date");
+
+                //verifying due date
+                Assert.AreEqual(addition_days, invoice_due_date, "Due date");
+
+                //custom
+                Assert.AreEqual("Custom", invoice_custom, "custom");
+
+                //custom term days
+                Assert.AreEqual("30", invoice_term_days, "Invoice terms days");
+
+                //invoice number
+                // Assert.AreEqual(invoice_number, detail_invoice_number);
+
+                //account_type
+                Assert.AreEqual("Turnover", account_type);
+
+                //invoice_detail_unit_cost
+                Assert.AreEqual(unit_cost_value2, invoice_detail_unit_cost, "Unit cost");
+
+                //invoice_quantity
+                Assert.AreEqual(quantity_value2, invoice_quantity, "Quantity");
+
+                //invoice_vat_rate
+                //Assert.AreEqual(vat_value_20, invoice_vat_rate);
+
+                //invoice_vat_total
+                Assert.AreEqual(vat_toal_value, invoice_vat_total, "Vat total value");
+
+                //invoice_detail_total_amount
+                Assert.AreEqual(total_amount_expected, invoice_detail_total_amount, "Total Amount invoice detail");
+
+                //invoice_detail_subtotal
+                Assert.AreEqual(subtotal_str, invoice_detail_subtotal, "Invoice detail");
+
+                //invoice_detail_tax
+                Assert.AreEqual("0.00", invoice_detail_tax, "Tax");
+
+                //invoice_detail_total
+                Assert.AreEqual(total_value_expected, invoice_detail_total, "Invoice detail total");
+
+                //invoice_detail_amount_paid
+                Assert.AreEqual(amount_paid, invoice_detail_amount_paid, "Invoice detail amount paid");
+
+                //invoice_detail_amount_due
+                Assert.AreEqual(amount_due, invoice_detail_amount_due, "Invoice detail amount Due");
+
+
+                //invoice_detail_comment
+                Assert.AreEqual(comment_added, invoice_detail_comment);
+
+                //invoice_detail_description
+                Assert.AreEqual(description, invoice_detail_description);
+
+                //invoice_detail_invoice_status
+                Assert.AreEqual("Unpaid", invoice_detail_invoice_status);
+
+                //invoice_detail_invoice_created
+
+                if (invoice_detail_invoice_created == "Invoice Created")
+                {
+                    Console.WriteLine("invoice created is showing");
+                }
+                else
+                {
+                    Console.WriteLine("Alert: invoice created is not showing");
+                }
+
+                //invoice_detail_price
+                Assert.AreEqual(price_bill_expected, invoice_detail_price, "Invoice detil price");
+
+                //Display Items summary gui on right place
+                Assert.AreEqual(true, display_items_summary_with_vat, "Displaying invoice Gui on correct place");
+
+                //Display saved item summary gui onr ight place
+                Assert.AreEqual(true, display_saved_item_summary_gui, "Display saved item summary gui onr ight place");
+
+
+            });
         }
 
 
+
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("create_new_invoice_with_file_attachment")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:793874%7D
+        //Automation-key-9
+
+        [Test, Order(4)]
+
+        public void test_case_4_create_new_invoice_with_file_attachment_without_VAT()
+        {
+
+            _systemElements1.user_already_login();
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
+            bool already_logged = _systemElements1.global_logged_in_true_false;
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+            if (already_logged == true)
+            {
+                _systemElements1.perform_click_to_dashboard();
+            }
+            //waitformee.Until(driver => _systemElements1.dashboard_leftmenu.Displayed);
+            //_systemElements1.dashboard_leftmenu.Click();
+            waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
+            _systemElements1.create_new_dashboard.Click();
+            waitformee.Until(driver => _systemElements1.create_new_invoice_dashboard.Displayed);
+            _systemElements1.create_new_invoice_dashboard.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            waitformee.Until(driver => _systemElements1.select_contact.Displayed);
+            waitformee.Until(driver => _systemElements1.attach_files.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.attach_files);
+           // _systemElements1.attach_files.Click();
+            waitformee.Until(driver => _systemElements1.upload_tab.Displayed);
+            _systemElements1.upload_tab.Click();
+            waitformee.Until(driver => _systemElements1.browse_file_upload.Displayed);
+            _systemElements1.browse_file_upload.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+
+            using (Process exeProcess = Process.Start(Constants.file_upload_script)) ;
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+            waitformee.Until(driver => _systemElements1.add_files_button.Enabled);
+            _systemElements1.add_files_button.Click();
+            try
+            {
+                bool attached_file_showing = _systemElements1.file_attached.Displayed;
+                if (attached_file_showing == true)
+                {
+                    Console.WriteLine("File has been attached and showing");
+                }
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("File not attached");
+            }
+
+
+            _systemElements1.select_contact.Click();
+
+            _systemElements1.perform_adding_invoice_bill_expense_mileage_without_vat(Constants.invoice_creation);
+
+            string selected_text_contact_info = _systemElements1.selected_text_contact_info1_wo_vat;
+            string today_date = _systemElements1.global_today_date_wo_vat;
+            string addition_days = _systemElements1.global_addition_days_wo_vat;
+            string terms = _systemElements1.global_terms_wo_vat;
+            int terms_days = _systemElements1.global_terms_days_wo_vat;
+            int invoice_number = _systemElements1.global_invoice_number_wo_vat;
+            string account_type_sales = _systemElements1.global_sales_turnover_value_wo_vat;
+            string unit_cost_value2 = _systemElements1.global_unit_cost_value_wo_vat;
+            string quantity_value2 = _systemElements1.global_Quantity_wo_vat;
+            string vat_percentage = _systemElements1.global_vat_value_20_vat_wo_vat;
+            string vat_toal_value = _systemElements1.global_toal_value_wo_vat;
+            string total_amount_expected = _systemElements1.global_total_amount_expected_wo_vat;
+            string subtotal_str = _systemElements1.global_subtotal_wo_vat;
+            string tax = _systemElements1.global_tax_wo_vat;
+            string total_value_expected = _systemElements1.global_total_value_expected_wo_vat;
+            string amount_paid = _systemElements1.global_amount_paid_wo_vat;
+            string amount_due = _systemElements1.global_amount_due_wo_vat;
+            string comment_added = _systemElements1.global_comment_added_wo_vat;
+            string description = _systemElements1.global_description_wo_vat;
+            string status = _systemElements1.global_status_wo_vat;
+            string invoice_created_by = _systemElements1.global_invoice_created_wo_vat;
+            string price_bill_expected = _systemElements1.global_price_bill_expected_wo_vat;
+            string tota_value_expected = _systemElements1.global_tota_value_expected_wo_vat;
+            string total_amount_value = _systemElements1.global_total_amount_value_wo_vat;
+            string price_bill_actual = _systemElements1.global_price_bill_actual_wo_vat;
+            string Net_Amount_expected = _systemElements1.global_Net_Amount_expected_wo_vat;
+            string vat_tax_value = _systemElements1.global_vat_tax_value_wo_vat;
+            string total_value_actual = _systemElements1.global_total_value_actual_wo_vat;
+            string amount_due_actual = _systemElements1.global_amount_due_actual_wo_vat;
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            _systemElements1.verifying_invoice_added_data_driven(Constants.shhet_11, selected_text_contact_info, today_date, addition_days, terms, terms_days, invoice_number, Constants.sales_turnover_value,
+                                                               Constants.unit_cost_value, Constants.Quantity, Constants.vat_value_20_vat, vat_toal_value, total_amount_expected,
+                                                               subtotal_str, tax, total_value_expected, amount_paid, amount_due, comment_added, description,
+                                                               status, invoice_created_by, price_bill_expected);
+
+
+            bool display_items_summary_with_vat = _systemElements1.display_items_summary_with_vat();
+
+            //click on saved And approve button
+            _systemElements1.saved_and_approve_btn.Click();
+
+            _systemElements1.perform_saved_invoice_bill_expense_mileage_without_vat(Constants.invoice_creation);
+
+            string contact_saved = _systemElements1.global_contact_saved_wo_vat;
+            string invoice_issue_date = _systemElements1.global_invoice_issue_date_wo_vat;
+            string invoice_due_date = _systemElements1.global_invoice_due_date_wo_vat;
+            string invoice_custom = _systemElements1.global_invoice_custom_wo_vat;
+            string invoice_term_days = _systemElements1.global_invoice_term_days_wo_vat;
+            string detail_invoice_number = _systemElements1.global_detail_invoice_number_wo_vat;
+            string account_type = _systemElements1.global_account_types_wo_vat;
+            string invoice_detail_unit_cost = _systemElements1.global_invoice_detail_unit_cost_wo_vat;
+            string invoice_quantity = _systemElements1.global_invoice_quantity_wo_vat;
+            string invoice_vat_rate = _systemElements1.global_invoice_vat_rate_wo_vat;
+            string invoice_vat_total = _systemElements1.global_invoice_vat_total_wo_vat;
+            string invoice_detail_total_amount = _systemElements1.global_invoice_detail_total_amount_wo_vat;
+            string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal_wo_vat;
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
+            string invoice_detail_tax = _systemElements1.global_invoice_detail_tax_wo_vat;
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
+            string invoice_detail_total = _systemElements1.global_invoice_detail_total_wo_vat;
+            invoice_detail_total = invoice_detail_total.Trim(' ');
+            string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid_wo_vat;
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
+            string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due_wo_vat;
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
+            string invoice_detail_comment = _systemElements1.global_invoice_detail_comment_wo_vat;
+            string invoice_detail_description = _systemElements1.global_invoice_detail_description_wo_vat;
+            string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status_wo_vat;
+            string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created_wo_vat;
+            string invoice_detail_price = _systemElements1.global_invoice_detail_price_wo_vat;
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+
+            bool display_saved_item_summary_gui = _systemElements1.display_saved_items_summary_with_vat();
+
+            _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_11, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
+                                                               invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
+                                                                invoice_detail_subtotal, invoice_detail_tax, invoice_detail_total, invoice_detail_amount_paid, invoice_detail_amount_due, invoice_detail_comment, invoice_detail_description,
+                                                                invoice_detail_invoice_status, invoice_detail_invoice_created, invoice_detail_price);
+
+            Assert.AreEqual("1", _systemElements1.invoice_file_count.Text);
+            _systemElements1.Files_tab.Click();
+            waitformee.Until(driver => _systemElements1.All_files_label.Displayed);
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            _systemElements1.no_of_col_and_rows(Constants.files_col, Constants.files_rows);
+            int column_size = _systemElements1.global_col;
+            int row_size = _systemElements1.global_row;
+
+            _systemElements1.invoice_overview_tab.Click();
+            waitformee.Until(driver => _systemElements1.invoice_detail_issue_date.Displayed);
+
+
+            Assert.Multiple(() =>
+            {
+
+
+              //  Assert.AreEqual(tota_value_expected, vat_toal_value);
+                Assert.AreEqual(total_amount_expected, total_amount_value);
+                Assert.AreEqual(price_bill_expected, price_bill_actual);
+                Assert.AreEqual(Net_Amount_expected, subtotal_str);
+                Assert.AreEqual(vat_tax_value, tax);
+                Assert.AreEqual(total_value_expected, total_value_actual);
+                Assert.AreEqual("0.00", amount_paid);
+                Assert.AreEqual(amount_due, amount_due_actual);
+
+
+                //////////////////////////////////////Verifying save data//////////////
+                ///
+
+                Assert.AreEqual(selected_text_contact_info, contact_saved);
+
+                //Verify issue date
+                Assert.AreEqual(today_date, invoice_issue_date);
+
+                //verifying due date
+                Assert.AreEqual(addition_days, invoice_due_date);
+
+                //custom
+                Assert.AreEqual("Custom", invoice_custom);
+
+                //custom term days
+                Assert.AreEqual("30", invoice_term_days);
+
+                //invoice number
+                // Assert.AreEqual(invoice_number, detail_invoice_number);
+
+                //account_type
+                Assert.AreEqual("Turnover", account_type);
+
+                //invoice_detail_unit_cost
+                Assert.AreEqual(unit_cost_value2, invoice_detail_unit_cost);
+
+                //invoice_quantity
+                Assert.AreEqual(quantity_value2, invoice_quantity);
+
+                //invoice_vat_rate
+                //Assert.AreEqual(vat_value_20, invoice_vat_rate);
+
+                //invoice_vat_total
+                Assert.AreEqual(vat_toal_value, invoice_vat_total);
+
+                //invoice_detail_total_amount
+                Assert.AreEqual(total_amount_expected, invoice_detail_total_amount);
+
+                //invoice_detail_subtotal
+                Assert.AreEqual(subtotal_str, invoice_detail_subtotal);
+
+                //invoice_detail_tax
+                Assert.AreEqual("0.00", invoice_detail_tax);
+
+                //invoice_detail_total
+                Assert.AreEqual(total_value_expected, invoice_detail_total);
+
+                //invoice_detail_amount_paid
+                Assert.AreEqual(amount_paid, invoice_detail_amount_paid);
+
+                //invoice_detail_amount_due
+                Assert.AreEqual(amount_due, invoice_detail_amount_due);
+
+
+                //invoice_detail_comment
+                Assert.AreEqual(comment_added, invoice_detail_comment);
+
+                //invoice_detail_description
+                Assert.AreEqual(description, invoice_detail_description);
+
+                //invoice_detail_invoice_status
+                Assert.AreEqual("Unpaid", invoice_detail_invoice_status);
+
+                //invoice_detail_invoice_created
+                if (invoice_detail_invoice_created == null)
+                {
+                    Console.WriteLine("Alert: Invoice created is null");
+                }
+                else
+                {
+                    Assert.AreEqual("Invoice Created", invoice_detail_invoice_created);
+
+                }
+
+                //Display Items summary gui on right place
+                Assert.AreEqual(true, display_items_summary_with_vat, "Displaying invoice Gui on correct place");
+
+                //Display saved item summary gui onr ight place
+                Assert.AreEqual(true, display_saved_item_summary_gui, "Display saved item summary gui onr ight place");
+
+
+
+                //invoice_detail_price
+                Assert.AreEqual(price_bill_expected, invoice_detail_price);
+
+                if (row_size - 1 == 1)
+                {
+                    Console.WriteLine("Files uploaded and showing in files tab");
+                }
+                else
+                {
+                    Assert.Fail("Files not showing in files tab");
+                }
+
+            });
+
+            close();
+        }
 
 
 
@@ -568,7 +1115,7 @@ namespace HaibooksAutomationForWeb
         //[Test, Order(4)]
         //public void test_case_4_verify_created_invoice_data_in_total_sales()
         //{
-          
+
 
         //}
 

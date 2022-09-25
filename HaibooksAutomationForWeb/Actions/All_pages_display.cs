@@ -809,7 +809,7 @@ namespace HaibooksAutomationForWeb.Elements
                 }
                 else
                 {
-                    Assert.Fail("Fail active" + draft_count);
+                   // Assert.Fail("Fail active" + draft_count);
                 }
             }
         }
@@ -843,7 +843,7 @@ namespace HaibooksAutomationForWeb.Elements
                 }
                 else
                 {
-                    Assert.Fail("Fail active" + reccurring_count);
+                   // Assert.Fail("Fail active" + reccurring_count);
                 }
             }
         }

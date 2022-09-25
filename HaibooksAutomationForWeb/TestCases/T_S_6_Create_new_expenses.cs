@@ -47,6 +47,9 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_expense_without_file_attachment")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393507%7D
+        ////Automation-key-426
+
         [Test, Order(1)]
 
         public void test_case_1_create_new_expense_without_file_attachment()
@@ -142,6 +145,12 @@ namespace HaibooksAutomationForWeb
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
 
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
+            invoice_detail_total = invoice_detail_total.Trim(' ');
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
 
 
             _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_8, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
@@ -250,6 +259,9 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_expense_with_file_attachment")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393508%7D
+        //Automation-key-427
+
         [Test, Order(2)]
 
         public void test_case_2_create_new_expense_with_file_attachment()
@@ -298,7 +310,9 @@ namespace HaibooksAutomationForWeb
 
 
             waitformee.Until(driver => _systemElements1.attach_files.Displayed);
-            _systemElements1.attach_files.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));           
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.attach_files);
+            //_systemElements1.attach_files.Click();
             waitformee.Until(driver => _systemElements1.upload_tab.Displayed);
             _systemElements1.upload_tab.Click();
             waitformee.Until(driver => _systemElements1.browse_file_upload.Displayed);
@@ -389,6 +403,12 @@ namespace HaibooksAutomationForWeb
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
 
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
+            invoice_detail_total = invoice_detail_total.Trim(' ');
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
 
             _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_9, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
                                                               invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
@@ -422,7 +442,7 @@ namespace HaibooksAutomationForWeb
             Assert.Multiple(() =>
             {
 
-                Assert.AreEqual(tota_value_expected, vat_toal_value);
+            Assert.AreEqual(tota_value_expected, vat_toal_value);
             Assert.AreEqual(total_amount_expected, total_amount_value);
             Assert.AreEqual(price_bill_expected, price_bill_actual);
             Assert.AreEqual(Net_Amount_expected, subtotal_str);
@@ -486,13 +506,13 @@ namespace HaibooksAutomationForWeb
 
             //invoice_detail_invoice_created
 
-            if (invoice_detail_invoice_created == "Invoice Created")
+            if (invoice_detail_invoice_created == "Staff Expense Created")
             {
-                Console.WriteLine("invoice created is showing");
+                Console.WriteLine("Expense created is showing");
             }
             else
             {
-                Console.WriteLine("Alert: invoice created is not showing");
+                Console.WriteLine("Alert: Expense created is not showing");
             }
 
             //invoice_detail_price

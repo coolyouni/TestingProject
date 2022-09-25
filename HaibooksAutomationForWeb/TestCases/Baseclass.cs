@@ -28,11 +28,11 @@ namespace HaibooksAutomationForWeb.TestCases
     public class Baseclass
     {
         public IWebDriver driver;
-        public string homeURL = Constants.main_website;
+        public string loginurl = Constants.login_main_website;
+       public string homeurl = Constants.main_website;
         public system_elements _systemElements1;
         public T_S_4_Create_new_invoice_test_case Create_new_test_case1;
       
-
 
 
         [SetUp]
@@ -44,12 +44,12 @@ namespace HaibooksAutomationForWeb.TestCases
 
                 try
                 {
-                    driver.Navigate().GoToUrl(homeURL);
+                    driver.Navigate().GoToUrl(loginurl);
 
                 }
                 catch (Exception e)
                 {
-                    driver.Navigate().GoToUrl(homeURL);
+                    driver.Navigate().GoToUrl(loginurl);
                 }
                 //WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
 
@@ -90,7 +90,7 @@ namespace HaibooksAutomationForWeb.TestCases
             {
                 // string path_new = @"C:\Users\younas.rehman\source\repos\HaibooksAutomationForWeb\packages\Selenium.Firefox.WebDriver.0.27.0\driver\geckodriver.exe";
                 //string path = @"C:\Users\younas.rehman\AppData\Local\Mozilla\Firefox\Profiles\amita4ga.default";
-                // FirefoxProfile ffprofile = new FirefoxProfile();
+              // FirefoxProfile ffprofile = new FirefoxProfile();
 
                 //   ffprofile.AddExtension(@"C:\Users\younas.rehman\Downloads\im_not_robot_captcha_clicker-1.3.1-fx.xpi");
                 //  FirefoxOptions options = new FirefoxOptions()
@@ -100,8 +100,8 @@ namespace HaibooksAutomationForWeb.TestCases
 
                 //   driver = new FirefoxDriver(options);
                 //FirefoxOptions opt = new FirefoxOptions();
-                //FirefoxProfile firefoxprofile = new FirefoxProfile();             
-
+             // FirefoxProfile firefoxprofile = new FirefoxProfile();            
+              
                 driver = new FirefoxDriver();
                 _systemElements1 = new system_elements(driver);
                 //Create_new_test_case1 = new Create_new_test_case(driver);
@@ -163,9 +163,17 @@ namespace HaibooksAutomationForWeb.TestCases
             {
                 return new List<string>();
             }
-        }   
+        }
+
+        public void take_home_page()
+        {
+            _systemElements1 = new system_elements(driver);
+            driver.Navigate().GoToUrl(homeurl);
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            waitformee.Until(driver => _systemElements1.login_button.Displayed);
+        }      
 
 
 
-    }
+        }
 }

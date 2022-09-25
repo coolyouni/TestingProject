@@ -110,7 +110,7 @@ namespace HaibooksAutomationForWeb.Elements
             global_mileage_number_saved_value = mileage_number_saved_value;
             Console.WriteLine("Mileage Number" + mileage_number_saved_value);
             //Currency
-            string currency_saved_value = _systemElements1.currency_saved_value.Text;
+            string currency_saved_value = _systemElements1.currency_value.GetAttribute("value");
             global_currency_saved_value = currency_saved_value;
             
 

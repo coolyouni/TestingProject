@@ -63,31 +63,31 @@ namespace HaibooksAutomationForWeb.Elements
                 already_logged_in = false;
                 global_logged_in_true_false = already_logged_in;
                 //driver.Quit();
-                if (homeURL == Constants.main_website)
+                if (loginurl == Constants.login_main_website)
                 {
                  // perform_login_with_paramters(Constants.login_username, Constants.login_password);
                     perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);
                 }
-                else if(homeURL == Constants.test2_website)
+                else if(loginurl == Constants.login_test2_website)
                 {
                    //perform_login_with_paramters(Constants.test2_login_username, Constants.test2_login_password);
                     perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);
                 }
-                else if (homeURL == Constants.receipt_site)
+                else if (loginurl == Constants.login_receipt_site)
                 {
                     perform_login_with_paramters(Constants.receipt_login_username, Constants.receipt_login_password);
                 }
-                else if (homeURL == Constants.temp_test_environment)
+                else if (loginurl == Constants.login_temp_test_environment)
                 {
                     perform_login_with_paramters(Constants.temp_test_login_username, Constants.temp_test_login_password);
                 }
 
-                else if (homeURL == Constants.temp_test_3569_environment)
+                else if (loginurl == Constants.login_temp_test_3569_environment)
                 {
                     perform_login_with_paramters(Constants.temp_3569_login_username, Constants.temp_test_login_password);
                 }
 
-                else if(homeURL==Constants.Any_link)
+                else if(loginurl==Constants.login_Any_link)
                 {
                     perform_login_with_paramters(Constants.seckin_username, Constants.seckin_password);                    
                 }           
