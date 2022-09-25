@@ -29,7 +29,14 @@ namespace HaibooksAutomationForWeb.Elements
         public IWebElement sales_left_side => driver.FindElement(By.Id("nav_link_sales"));
         public IWebElement invoices_left_side => driver.FindElement(By.Id("sub_nav_link_invoices"));
         public IWebElement recurring_invoices_left_side => driver.FindElement(By.Id("sub_nav_link_recurring_invoices"));
-        public IWebElement archived_invoices_left_side => driver.FindElement(By.Id("sub_nav-link_archived_invoices"));       
+        public IWebElement archived_invoices_left_side => driver.FindElement(By.Id("sub_nav-link_archived_invoices"));
+        public IWebElement Forgot_password => driver.FindElement(By.XPath("//a[normalize-space()='Forgot Password']"));
+        public IWebElement email_address_send_button => driver.FindElement(By.Id("forgotPasswordEmailSendButton"));
+        public IWebElement back_to_login_button => driver.FindElement(By.XPath(" //a[normalize-space()='Back to login']"));
+        public IWebElement login_button => driver.FindElement(By.XPath("(//a[normalize-space()='Login'])[1]"));
+        public IWebElement password_validaion_id => driver.FindElement(By.Id("registerPasswordValidation"));
+
+        
 
     }
 }

@@ -125,8 +125,8 @@ namespace HaibooksAutomationForWeb.MyHelper
 
             public int GetRandominvoicevalue(int length)
             {
-                int _min = 1000;
-                int _max = 2000;
+                int _min = 10000;
+                int _max = 20000;
                 Random _rdm = new Random();
                 return _rdm.Next(_min, _max);
             }
@@ -135,7 +135,7 @@ namespace HaibooksAutomationForWeb.MyHelper
             public string GetRandomEmailvalue(string signer_name)
             {
                 MyHelperClass c = new MyHelperClass();
-                var names_generate = c.GetRandominvoicevalue(4);
+                var names_generate = c.GetRandominvoicevalue(5);
                 //string email_value = Constants.accounting_signer_name + "_" + names_generate + "@mailinator.com";
                 string email_value = signer_name + "_" + names_generate + "@mailinator.com";
                 return email_value;

@@ -61,7 +61,7 @@ namespace HaibooksAutomationForWeb.Elements
             _systemElements1.Mobile_textbox.SendKeys(Constants.mobile_no);           
 
             //Adding website
-            _systemElements1.Website_textbox.SendKeys(homeURL);
+            _systemElements1.Website_textbox.SendKeys(loginurl);
 
 
             //Adding Fax

@@ -43,6 +43,12 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify_signup_for_business_owner")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:773036%7D
+        //Automation-key-7
+        //Automation-key-107
+        //Automation-key-111
+        //Automation-key-112
+
         [Test, Order(1)]
         public void test_case_1_verify_signup_for_business_owner()
         {
@@ -74,9 +80,9 @@ namespace HaibooksAutomationForWeb
 
             //Genrating email value
             MyHelperClass c = new MyHelperClass();
-            string email_value = c.GetRandomEmailvalue(Constants.firstname);
-            Console.WriteLine("Email Value: " + email_value);
-            _systemElements1.register_email_txtbx.SendKeys(email_value);
+         Constants.email_value_registered = c.GetRandomEmailvalue(Constants.firstname);
+            Console.WriteLine("Email Value: " + Constants.email_value_registered);
+            _systemElements1.register_email_txtbx.SendKeys(Constants.email_value_registered);
 
             //phone no mandatory
             Thread.Sleep(TimeSpan.FromSeconds(4));
@@ -97,7 +103,7 @@ namespace HaibooksAutomationForWeb
             _systemElements1.Get_started_btn.Click();
 
             waitformee.Until(driver => _systemElements1.Nearly_done.Displayed);
-            Assert.AreEqual(email_value, _systemElements1.Activation_email.Text);
+            Assert.AreEqual(Constants.email_value_registered, _systemElements1.Activation_email.Text);
 
 
             //Mailinator.com
@@ -107,16 +113,17 @@ namespace HaibooksAutomationForWeb
             waitformee.Until(driver => _systemElements1.search_textbox.Displayed);
             }catch(Exception e){ }
 
-            if (homeURL == Constants.test2_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL== Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
+            if (loginurl == Constants.login_test2_website || loginurl == Constants.login_temp_test_environment || loginurl == Constants.login_receipt_site || loginurl== Constants.login_temp_test_3569_environment || loginurl == Constants.login_Any_link)
             {
                 _systemElements1.perform_searching(Constants.forward_email);
-                                                //subject body contains for clicking email
+              
+                //subject body contains for clicking email
                 waitformee.Until(driver => _systemElements1.subject_body_forwading_email.Displayed);
                 _systemElements1.subject_body_forwading_email.Click();
             }
             else 
             { 
-                _systemElements1.perform_searching(email_value);
+                _systemElements1.perform_searching(Constants.email_value_registered);
                                               //subject body contains for clicking email
                 waitformee.Until(driver => _systemElements1.subject_body.Displayed);
                 _systemElements1.subject_body.Click();
@@ -185,11 +192,11 @@ namespace HaibooksAutomationForWeb
             
             Assert.AreEqual(Constants.firstname, firstname_actual_result);
             Assert.AreEqual(Constants.lastname, Lastname_actual_result);
-            Assert.AreEqual(email_value, Email_actual_result);
+            Assert.AreEqual(Constants.email_value_registered, Email_actual_result);
             Console.WriteLine("Verifing that business owner signup and data showing in profile: ");
             Console.WriteLine("Expected First name: " + Constants.firstname + ", Actual First name: "+ firstname_actual_result);
             Console.WriteLine("Expected Last name: " + Constants.lastname + ", Actual Last name: " + Lastname_actual_result);
-            Console.WriteLine("Expected Email Value: " + email_value + ", Actual Email value: " + Email_actual_result);
+            Console.WriteLine("Expected Email Value: " + Constants.email_value_registered + ", Actual Email value: " + Email_actual_result);
             close();
         }
 
@@ -197,6 +204,8 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_signup_for_business_advisor")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:771494%7D
+        //Automation-key-3
 
         [Test, Order(2)]
         public void test_case_2_verify_signup_for_business_advisor()
@@ -265,7 +274,7 @@ namespace HaibooksAutomationForWeb
                 waitformee.Until(driver => _systemElements1.search_textbox.Displayed);
             }catch(Exception e) { }
 
-            if (homeURL == Constants.test2_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL == Constants.temp_test_3569_environment || homeURL == Constants.Any_link)
+            if (loginurl == Constants.login_test2_website || loginurl == Constants.login_temp_test_environment || loginurl == Constants.login_receipt_site || loginurl == Constants.login_temp_test_3569_environment || loginurl == Constants.login_Any_link)
             {
                 _systemElements1.perform_searching(Constants.forward_email);
                 //subject body contains for clicking email
@@ -273,7 +282,7 @@ namespace HaibooksAutomationForWeb
                 _systemElements1.subject_body_forwading_email.Click();
             }
 
-            //if (homeURL == Constants.test_website || homeURL == Constants.temp_test_environment || homeURL == Constants.receipt_site || homeURL == Constants.temp_test_3569_environment)
+            //if (loginurl == Constants.test_website || loginurl == Constants.temp_test_environment || loginurl == Constants.receipt_site || loginurl == Constants.temp_test_3569_environment)
             //{
             //    _systemElements1.perform_searching(Constants.forward_email);
             //    //subject body contains for clicking email
@@ -360,7 +369,167 @@ namespace HaibooksAutomationForWeb
             Console.WriteLine("Expected Last name: " + Constants.lastname + ", Actual Last name: " + Lastname_actual_result);
             Console.WriteLine("Expected Email Value: " + email_value + ", Actual Email value: " + Email_actual_result);
             close();
-        }      
+        }
+
+
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_user_can_access_signup_from_sign_in_page")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:875109%7D
+        //Automation-key-103
+        //Automation-key-105
+
+        [Test, Order(3)]
+        public void test_case_3_verify_user_can_access_signup_from_sign_in_page()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+            _systemElements1.take_home_page();
+            _systemElements1.login_button.Click();
+            //Click on signup button
+            try
+            {
+                waitformee.Until(driver => _systemElements1.sign_up_button.Displayed);
+            }
+            catch (Exception e) { }
+          ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.sign_up_button);
+            //_systemElements1.sign_up_button.Click();
+
+            //business owner link is displaying
+            waitformee.Until(driver => _systemElements1.business_owner_btn.Displayed);
+
+            //business advisor link is displaying
+            waitformee.Until(driver => _systemElements1.business_adviser_btn.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            //Click on Business owner button
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(_systemElements1.business_owner_btn).Click().Build().Perform();
+            //clcik on next button
+            _systemElements1.Next_btn.Click();
+            waitformee.Until(driver => _systemElements1.Get_started_btn.Displayed);
+            close();
+        }
+
+
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureTms("TMS")]
+        [AllureEpic("Regression Test")]
+        [AllureStory("verify_user_can_access_signup_from_sign_in_page")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:875109%7D
+        //Automation-key-108
+      
+
+        [Test, Order(4)]
+        public void test_case_4_verify_password_policy_on_signup_page()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+
+            //Click on signup button
+            try
+            {
+                waitformee.Until(driver => _systemElements1.sign_up_button.Displayed);
+            }
+            catch (Exception e) { }
+          ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.sign_up_button);
+            //_systemElements1.sign_up_button.Click();
+
+            //business owner link is displaying
+            waitformee.Until(driver => _systemElements1.business_owner_btn.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            //Click on Business owner button
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(_systemElements1.business_owner_btn).Click().Build().Perform();
+            //clcik on next button
+            _systemElements1.Next_btn.Click();
+            waitformee.Until(driver => _systemElements1.Get_started_btn.Displayed);
+
+            //Password
+            _systemElements1.password_txtbx.SendKeys(Constants.password_less_than_6_char);
+            _systemElements1.confirm_pwd_txtbx.SendKeys(Constants.password_less_than_6_char);
+
+            //Get started button
+            _systemElements1.Get_started_btn.Click();
+
+            //Verifying validation id displaying
+          bool pwd_validation=_systemElements1.password_validaion_id.Displayed;
+          string validation_text = _systemElements1.password_validaion_id.Text;
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(true, pwd_validation);
+                Assert.AreEqual(Constants.pwd_validation_error, validation_text);
+            });           
+        }
+
+        //  //Automation-key-109
+
+        [Test, Order(5)]
+        public void test_case_5_verify_user_cannot_use_the_email_of_existing_user()
+        {
+            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+
+            //Click on signup button
+            try
+            {
+                waitformee.Until(driver => _systemElements1.sign_up_button.Displayed);
+            }
+            catch (Exception e) { }
+          ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.sign_up_button);
+            //_systemElements1.sign_up_button.Click();
+
+            //business owner link is displaying
+            waitformee.Until(driver => _systemElements1.business_owner_btn.Displayed);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            //Click on Business owner button
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(_systemElements1.business_owner_btn).Click().Build().Perform();
+            //clcik on next button
+            _systemElements1.Next_btn.Click();
+            waitformee.Until(driver => _systemElements1.Get_started_btn.Displayed);
+
+            //Enter data for registering
+            _systemElements1.first_name_txtbx.SendKeys(Constants.firstname);
+            _systemElements1.last_name_txtbx.SendKeys(Constants.lastname);
+
+
+            //using registered email          
+            _systemElements1.register_email_txtbx.SendKeys(Constants.email_value_registered);
+
+            //phone no mandatory
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+            SelectElement drpCountry = new SelectElement(_systemElements1.regisgter_phone_country_code_drop_down);
+            drpCountry.SelectByValue("+92");
+            _systemElements1.phone_no_txtbx.SendKeys(Constants.phone_no_without_code);
+
+            //Password
+            _systemElements1.password_txtbx.SendKeys(Constants.password);
+            _systemElements1.confirm_pwd_txtbx.SendKeys(Constants.password);
+
+            //Consent form
+
+            Actions consentcheckbox = new Actions(driver);
+            consentcheckbox.MoveToElement(_systemElements1.consent_checkbox).Click().Build().Perform();
+
+            //Get started button
+            _systemElements1.Get_started_btn.Click();
+            try
+            {
+                waitformee.Until(driver => _systemElements1.unique_email.Displayed);
+            }
+            catch(Exception e)
+            {           
+            }
+            string unique_email=_systemElements1.unique_email.Text;
+            Assert.AreEqual("Email should be unique", unique_email);
+            close();
+        }
+
+
+
     }
 }
 

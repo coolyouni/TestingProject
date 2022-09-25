@@ -120,6 +120,7 @@ namespace HaibooksAutomationForWeb.Elements
                     select_contact_List = new SelectElement(select_contact_drop_down_option);
                     IList<IWebElement> options = select_contact_List.Options;
                     size_of_drop_down_option = options.Count;
+                    Console.WriteLine("size of drop down:" + size_of_drop_down_option);
                 }
                 else
                 {
@@ -131,16 +132,17 @@ namespace HaibooksAutomationForWeb.Elements
                 }
 
 
-                if (size_of_drop_down_option < 2)
+                if (size_of_drop_down_option <= 2)
                 {
                     //Add contact
                    //_systemElements1.select_contact_drop_down_option.Click();
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                    Thread.Sleep(TimeSpan.FromSeconds(3));
                     waitformee.Until(driver => _systemElements1.add_contact.Displayed);
                     Thread.Sleep(TimeSpan.FromSeconds(1));
                     add_contact.Click();
                     waitformee.Until(driver => _systemElements1.add_contact_business_full_name.Displayed);
 
+                    Thread.Sleep(TimeSpan.FromSeconds(3));
                     //Adding business
                     MyHelperClass business_name = new MyHelperClass();
                     var business_full_name = business_name.template_message_body(20);
@@ -464,6 +466,7 @@ namespace HaibooksAutomationForWeb.Elements
             _systemElements1.unit_cost.Clear();
             _systemElements1.unit_cost.SendKeys(Constants.unit_cost_value);
             global_unit_cost_value = Constants.unit_cost_value;
+            
             //Add Quantity
             Thread.Sleep(TimeSpan.FromSeconds(1));
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", _systemElements1.quantity);
@@ -925,7 +928,7 @@ namespace HaibooksAutomationForWeb.Elements
             string invoice_detail_invoice_created, invoice_detail_invoice_created_date_time;
 
             //invoice_detail_invoice_created
-           if (homeURL!=Constants.main_website)
+           if (loginurl!=Constants.main_website)
             {
                 try
                 {
@@ -1018,11 +1021,14 @@ namespace HaibooksAutomationForWeb.Elements
             global_mileage_number = Mileage_no;
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
-            string currency = _systemElements1.currency.Text;
-            if(currency != "GBP")
-            {
-                Console.WriteLine("Alert: currency not showing in GBP");
-            }
+            SelectElement GBP_currency_drop_down = new SelectElement(_systemElements1.currencyDropdown);
+            GBP_currency_drop_down.SelectByText("GBP");
+            
+            //string currency = _systemElements1.currency.Text;
+            //if(currency != "GBP")
+            //{
+            //    Console.WriteLine("Alert: currency not showing in GBP");
+            //}
             _systemElements1.number_of_mileage.Clear();
             _systemElements1.number_of_mileage.SendKeys(Constants.miles);
             Thread.Sleep(TimeSpan.FromSeconds(2));            

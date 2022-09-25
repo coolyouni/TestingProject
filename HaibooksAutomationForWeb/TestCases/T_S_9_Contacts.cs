@@ -40,6 +40,8 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify_contacts_are_adding")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:809470%7D
+        //Automation-key-20
         [Test, Order(1)]  
         
         public void test_case_1_verify_contacts_are_adding()
@@ -160,7 +162,7 @@ namespace HaibooksAutomationForWeb
                 Assert.AreEqual(email_value, email_value_g);
                 Assert.AreEqual(Constants.phone_no_without_code, phone_no_g);
                 Assert.AreEqual(Constants.mobile_no, mobile_no_g);
-                Assert.AreEqual(homeURL, website_text_box_g);
+                Assert.AreEqual(loginurl, website_text_box_g);
                 Assert.AreEqual(Constants.Fax_no, fax_text_box);
 
                 Assert.AreEqual(Constants.Buidling_adress, building_text_box);
@@ -185,6 +187,9 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify_contacts_expand_and_collpased_working_fine")]
         [Test, Order(2)]
+
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:807459%7D
+        ////Automation-key-19
 
         public void test_case_2_verify_contacts_expand_and_collpased_working_fine()
 

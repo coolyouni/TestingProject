@@ -46,12 +46,17 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_bill_without_file_attachment")]
 
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:992662%7D
+        //Automation-key-268
+
         [Test, Order(1)]
 
         public void test_case_1_create_new_bill_without_file_attachment()
         {
             _systemElements1.user_already_login();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            _systemElements1.perform_select_SpaceX();
+            waitformee.Until(PRED => _systemElements1.dashboard_leftmenu.Displayed);            
             waitformee.Until(driver => _systemElements1.create_new_dashboard.Displayed);
             _systemElements1.create_new_dashboard.Click();
             waitformee.Until(driver => _systemElements1.create_new_bill_dashboard.Displayed);
@@ -117,15 +122,22 @@ namespace HaibooksAutomationForWeb
             string invoice_vat_total = _systemElements1.global_invoice_vat_total;
             string invoice_detail_total_amount = _systemElements1.global_invoice_detail_total_amount;
             string invoice_detail_subtotal = _systemElements1.global_invoice_detail_subtotal;
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
             string invoice_detail_tax = _systemElements1.global_invoice_detail_tax;
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
             string invoice_detail_total = _systemElements1.global_invoice_detail_total;
+            invoice_detail_total = invoice_detail_total.Trim(' ');
             string invoice_detail_amount_paid = _systemElements1.global_invoice_detail_amount_paid;
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
             string invoice_detail_amount_due = _systemElements1.global_invoice_detail_amount_due;
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
             string invoice_detail_comment = _systemElements1.global_invoice_detail_comment;
             string invoice_detail_description = _systemElements1.global_invoice_detail_description;
             string invoice_detail_invoice_status = _systemElements1.global_invoice_detail_invoice_status;
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+
 
 
 
@@ -202,13 +214,13 @@ namespace HaibooksAutomationForWeb
             Assert.AreEqual(tax, invoice_detail_tax);
 
             //invoice_detail_total
-            Assert.AreEqual(total_value_expected, invoice_detail_total);
+            Assert.AreEqual(total_value_expected, invoice_detail_total, "Invoice total value");
 
             //invoice_detail_amount_paid
-            Assert.AreEqual(amount_paid, invoice_detail_amount_paid);
+            Assert.AreEqual(amount_paid, invoice_detail_amount_paid, "invoice amount Paid");
 
             //invoice_detail_amount_due
-            Assert.AreEqual(amount_due, invoice_detail_amount_due);
+            Assert.AreEqual(amount_due, invoice_detail_amount_due, "Invoice amount due");
                     
 
             //invoice_detail_description
@@ -229,7 +241,7 @@ namespace HaibooksAutomationForWeb
             }
 
             //invoice_detail_price
-            Assert.AreEqual(price_bill_expected, invoice_detail_price);
+            Assert.AreEqual(price_bill_expected, invoice_detail_price, "Invoice Detail Price");
 
             //invoice_detail_comment
             Assert.AreEqual(comment_added, invoice_detail_comment);
@@ -242,6 +254,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_bill_with_file_attachment")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:992661%7D
+        //Automation-key-267
+
         [Test, Order(2)]
 
         public void test_case_2_create_new_bill_with_file_attachment()
@@ -371,6 +386,14 @@ namespace HaibooksAutomationForWeb
             string invoice_detail_invoice_created = _systemElements1.global_invoice_detail_invoice_created;
             string invoice_detail_price = _systemElements1.global_invoice_detail_price;
 
+            invoice_detail_subtotal = invoice_detail_subtotal.Trim(' ');
+            invoice_detail_tax = invoice_detail_tax.Trim(' ');
+            invoice_detail_total = invoice_detail_total.Trim(' ');
+            invoice_detail_amount_due = invoice_detail_amount_due.Trim(' ');
+            invoice_detail_amount_paid = invoice_detail_amount_paid.Trim(' ');
+            invoice_detail_price = invoice_detail_price.Trim(' ');
+            
+
 
             _systemElements1.verifying_invoice_saved_data_driven(Constants.shhet_7, contact_saved, invoice_issue_date, invoice_due_date, invoice_custom, invoice_term_days, detail_invoice_number, account_type,
                                                               invoice_detail_unit_cost, invoice_quantity, invoice_vat_rate, invoice_vat_total, invoice_detail_total_amount,
@@ -484,10 +507,6 @@ namespace HaibooksAutomationForWeb
             {
                 Console.WriteLine("Alert: invoice created is not showing");
             }
-
-            //invoice_detail_price
-            Assert.AreEqual(price_bill_expected, invoice_detail_price);
-
 
             //invoice_detail_price
             Assert.AreEqual(price_bill_expected, invoice_detail_price);

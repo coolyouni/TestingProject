@@ -43,7 +43,8 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify that user can Add Dividends successfully")]
         [Test, Order(1)]
-        //Receipts >> verify that user can Add Dividends successfully       
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393513%7D
+        ////Automation-key-430
 
         public void test_case_1_Add_Dividens_added_successfully()
         {
@@ -266,7 +267,9 @@ namespace HaibooksAutomationForWeb
         [AllureEpic("Regression Test")]
         [AllureStory("verify that user can Add Journals successfully")]
         [Test, Order(2)]
-        //Receipts >> verify that user can Add Journals successfully
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393517%7D
+        //Automation-key-431
+
         public void test_case_2_add_journals_with_VAT_inclusive()
         {
             _systemElements1.user_already_login();

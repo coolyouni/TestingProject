@@ -47,6 +47,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_Mileage")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393509%7D
+        //Automation-key-428
+
 
         [Test, Order(1)]
         public void test_case_1_create_new_Mileage()
@@ -148,6 +151,9 @@ namespace HaibooksAutomationForWeb
         [AllureTms("TMS")]
         [AllureEpic("Regression Test")]
         [AllureStory("verify create_new_Mileage_with_file_attachment")]
+        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:1393511%7D
+        //Automation-key-429
+
 
         [Test, Order(2)]
         public void test_case_2_create_new_Mileage_with_file_attachment()
