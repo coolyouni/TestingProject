@@ -10,8 +10,8 @@ This project is designed to automate the functional testing of the Haibooks web 
 - **Automation Framework:** Selenium WebDriver
 - **Test Framework:** NUnit
 - **Build Tool:** .NET CLI / Visual Studio
-- **BDD Framework:** SpecFlow (if applicable)
-- **Test Data:** Excel (using Apache POI or a similar library)
+- **BDD Framework:** SpecFlow (Pending)
+- **Test Data:** Excel (using interop office excel file)
 - **Other Tools:** Docker (for containerized test execution), Git (for version control)
 
 ## Project Structure
@@ -65,13 +65,14 @@ Data-Driven Testing
 This project uses Excel files for data-driven testing. The ExcelReader.cs utility class is responsible for reading test data from the Excel file located in the resources/ directory.
 
 Example: Reading Data from Excel
-csharp
+Excel Reading:
 
-public static IEnumerable<TestCaseData> GetTestData()
-{
-    var testData = ExcelReader.ReadExcelFile("datadriven_haibooks.xlsx");
-    foreach (var dataRow in testData)
-    {
-        yield return new TestCaseData(dataRow);
-    }
-}
+The Excel file is opened using xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);.
+The specific cells are accessed using xlRange.Cells[row, column].Value2.ToString();.
+I included exception handling (try-catch-finally) to ensure that resources are properly released, even if an exception occurs.
+COM Object Release:
+
+The Marshal.ReleaseComObject is used to properly release COM objects, preventing memory leaks and ensuring the Excel process exits cleanly.
+Error Handling:
+
+A COMException is caught, and a message is printed to the console to aid in debugging if something goes wrong during file access.
