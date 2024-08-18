@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,11 @@ namespace HaibooksAutomationForWeb.Constant
     public class Constants: Baseclass
     {
 
-        ////////////////////////Configuration for each path you need to set by your own path
-        public const string screenshot_path="D://screenshot//";
-        public const string excel_path_for_data_driven = @"D:\Haibooks\datadriven_haibooks.xlsx";
-        public const string file_upload_script = @"D:\Haibooks\file_upload_script.exe";
+		////////////////////////Configuration for each path you need to set by your own path
+		// Assuming the file is in the output directory
+		public static readonly string ExcelPathForDataDriven = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "datadriven_haibooks.xlsx");
+		public static readonly string screenshot_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "screenshots");
+		public const string file_upload_script = @"D:\Haibooks\file_upload_script.exe";
         public const string wrong_file_upload_script = @"D:\Haibooks\wrong_file_upload.exe";
         public const string multiple_file_upload_script = @"D:\Haibooks\multiple_file_upload.exe";
 

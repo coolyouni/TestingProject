@@ -25,7 +25,7 @@ namespace HaibooksAutomationForWeb.Elements
             excel.Application xlApp = new excel.Application();
 
             //Opens demo.xlsx
-            excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.excel_path_for_data_driven);
+            excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);
 
             //Selects the first Sheet
 

@@ -45,7 +45,7 @@ namespace HaibooksAutomationForWeb.Elements
                 waitformee.Until(driver => _systemElements1.financial_overview_view_sales_link.Displayed);
             }
             catch(Exception e) { }
-            takesceenshot("TC_4_valid_email_valid_pwd.png");
+            Takescreenshot("TC_4_valid_email_valid_pwd.png");
            
         }
 
