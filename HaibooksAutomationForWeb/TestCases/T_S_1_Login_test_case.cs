@@ -1,486 +1,227 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Appium;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium;
-using System.Diagnostics;
-using OpenQA.Selenium.Support.Extensions;
-using OpenQA.Selenium.Interactions;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using OpenQA.Selenium.Firefox;
 using HaibooksAutomationForWeb.TestCases;
-using HaibooksAutomationForWeb.Elements;
-using HaibooksAutomationForWeb.MyHelper;
-using HaibooksAutomationForWeb.Constant;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
-using OpenQA.Selenium.Remote;
 using NUnit.Allure.Core;
 using NUnit.Allure.Attributes;
 using Allure.Commons;
 
 namespace HaibooksAutomationForWeb
 {
-    [TestClass]
-    [TestFixture]
-    [AllureNUnit]
-    [AllureSuite("Login Test cases")]
-    [AllureTag("Login Test Cases")]
-    public class T_S_1_Login_test_case : Baseclass
-    {
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_login_test_case_with_empty_email_empty_pwd")]
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772995%7D
-        //Automation-key-4
+	[TestClass]
+	[TestFixture]
+	[AllureNUnit]
+	[AllureSuite("Login Test cases")]
+	[AllureTag("Login Test Cases")]
+	public class Login_test_case : Baseclass
+	{
+		[AllureSeverity(SeverityLevel.critical)]
+		[AllureTms("TMS")]
+		[AllureEpic("Regression Test")]
+		[AllureStory("verify_login_test_case_with_empty_email_empty_pwd")]
+		[Test, Order(1)]
+		public void test_case_1_verify_login_test_case_with_empty_email_empty_pwd()
+		{
+			WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
 
-        [Test, Order(1)]
+			// Enter email address
+			_systemElements1.email_adress_textbox.Click();
+			_systemElements1.email_adress_textbox.Clear();
 
-        public void test_case_1_verify_login_test_case_with_empty_email_empty_pwd()
-        {
-           
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);     
-         
-            ////checking iframe exists
-            //try
-            //{
-            //    List<IWebElement> list_for_element = new List<IWebElement>();
-            //    list_for_element.AddRange(driver.FindElements(By.TagName("iframe")));
-            //    if (list_for_element.Count > 0)
-            //    {
-            //        driver.SwitchTo().Frame(0);
-            //        Thread.Sleep(TimeSpan.FromSeconds(10));
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    driver.SwitchTo().DefaultContent();
-            //    Console.WriteLine("iframme switch does not exists");
-            //}
-            //driver.SwitchTo().DefaultContent();
+			// Enter password
+			_systemElements1.password_textbox.Click();
+			_systemElements1.password_textbox.Clear();
+			Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            //Enter email address
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();     
-            
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();     
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-           
-            _systemElements1.signin_button.Click();          
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            takesceenshot("TC_1_empty_email_and_pwd.png");
-            waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
-            waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
-            Console.WriteLine("Login email validation is checked and showing following validation message: " + _systemElements1.login_email_validation.Text);
-            Console.WriteLine("Login Password validation is checked and showing following validation message: " + _systemElements1.login_pwd_validation.Text);
-            close();            
-        }
+			_systemElements1.signin_button.Click();
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			Takescreenshot("TC_1_empty_email_and_pwd.png");
+			waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
+			waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
+			Console.WriteLine("Login email validation is checked and showing the following validation message: " + _systemElements1.login_email_validation.Text);
+			Console.WriteLine("Login Password validation is checked and showing the following validation message: " + _systemElements1.login_pwd_validation.Text);
+			Close();
+		}
 
+		[AllureSeverity(SeverityLevel.critical)]
+		[AllureTms("TMS")]
+		[AllureEpic("Regression Test")]
+		[AllureStory("verify_login_test_case_invalid_email_invalid_pwd")]
+		[Test, Order(2)]
+		public void test_case_2_verify_login_test_case_invalid_email_invalid_pwd()
+		{
+			WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+			_systemElements1.verifying_login_with_data_driven(2, 1, 2, 2);
+			var email_adress = _systemElements1.global_email_adress;
+			var password = _systemElements1.global_password;
+			Console.WriteLine(email_adress);
+			Console.WriteLine(password);
 
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_login_test_case_invalid_email_invalid_pwd")]
+			// Enter email address
+			_systemElements1.email_adress_textbox.Click();
+			_systemElements1.email_adress_textbox.Clear();
+			_systemElements1.email_adress_textbox.SendKeys(email_adress);
 
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:770888%7D
-        //Automation-key-2
+			// Enter password
+			_systemElements1.password_textbox.Click();
+			_systemElements1.password_textbox.Clear();
+			_systemElements1.password_textbox.SendKeys(password);
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			_systemElements1.signin_button.Click();
+			Console.WriteLine("Data is added from excel sheet");
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			Takescreenshot("TC_2_invalid_email_invalid_pwd.png");
+			waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
+			waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
+			Console.WriteLine("Login email validation is checked and showing the following validation message: " + _systemElements1.login_email_validation.Text);
+			Console.WriteLine("Login Password validation is checked and showing the following validation message: " + _systemElements1.login_pwd_validation.Text);
+			Close();
+		}
 
-        [Test, Order(2)]
-      
-        public void test_case_2_verify_login_test_case_invalid_email_invalid_pwd()       
-        {
-           
-           
-             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
-            _systemElements1.verifying_login_with_data_driven(2,1,2,2);
-            var email_adress = _systemElements1.global_email_adress;
-            var password = _systemElements1.global_password;
-            Console.WriteLine(email_adress);
-            Console.WriteLine(password);
+		[AllureSeverity(SeverityLevel.critical)]
+		[AllureTms("TMS")]
+		[AllureEpic("Regression Test")]
+		[AllureStory("verify_login_test_case_valid_email_invalid_pwd")]
+		[Test, Order(3)]
+		public void test_case_3_verify_login_test_case_valid_email_invalid_pwd()
+		{
+			WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+			_systemElements1.verifying_login_with_data_driven(3, 1, 3, 2);
+			var email_adress = _systemElements1.global_email_adress;
+			var password = _systemElements1.global_password;
+			Console.WriteLine(email_adress);
+			Console.WriteLine(password);
 
-            ////checking iframe exists
-            //try
-            //{
-            //    List<IWebElement> list_for_element = new List<IWebElement>();
-            //    list_for_element.AddRange(driver.FindElements(By.TagName("iframe")));
-            //    if (list_for_element.Count > 0)
-            //    { 
-            //    driver.SwitchTo().Frame(0);
-            //    Thread.Sleep(TimeSpan.FromSeconds(10));
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    driver.SwitchTo().DefaultContent();
-            //    Console.WriteLine("iframme switch does not exists");
-            // }
-            //driver.SwitchTo().DefaultContent();
+			// Enter email address
+			_systemElements1.email_adress_textbox.Click();
+			_systemElements1.email_adress_textbox.Clear();
+			_systemElements1.email_adress_textbox.SendKeys(email_adress);
 
-            //Enter email address
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();
-            _systemElements1.email_adress_textbox.SendKeys(email_adress);
+			// Enter password
+			_systemElements1.password_textbox.Click();
+			_systemElements1.password_textbox.Clear();
+			_systemElements1.password_textbox.SendKeys(password);
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			_systemElements1.signin_button.Click();
+			Console.WriteLine("Data imported from excel");
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
+			waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
+			Console.WriteLine("Login email validation is checked and showing the following validation message: " + _systemElements1.login_email_validation.Text);
+			Console.WriteLine("Login Password validation is checked and showing the following validation message: " + _systemElements1.login_pwd_validation.Text);
+			Takescreenshot("TC_3_valid_email_invalid_pwd.png");
+			Close();
+		}
 
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();
-            _systemElements1.password_textbox.SendKeys(password);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+		[AllureSeverity(SeverityLevel.critical)]
+		[AllureTms("TMS")]
+		[AllureEpic("Regression Test")]
+		[AllureStory("verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page")]
+		[Test, Order(4)]
+		public void Test_case_4_verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page()
+		{
+			WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+			bool forgot_password = _systemElements1.Forgot_password.Displayed;
+			_systemElements1.Forgot_password.Click();
+			waitformee.Until(driver => _systemElements1.email_address_send_button.Displayed);
+			waitformee.Until(driver => _systemElements1.back_to_login_button.Displayed);
+			_systemElements1.back_to_login_button.Click();
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			bool signin_button_showing = _systemElements1.signin_button.Displayed;
+			Assert.Multiple(() =>
+			{
+				Assert.AreEqual(true, forgot_password, "Forgot password link should be showing");
+				Assert.AreEqual(true, signin_button_showing, "Verify user navigate back to login page");
+			});
+		}
 
-           
-            //// <iframe title="recaptcha challenge expires in two minutes" 
-            /////src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=_exWVY_hlNJJl2Abm8pI9i1L&amp;k=6Lemx5MUAAAAAJRAQ7mdo5bh8-vPfEXbLk4XogGd" name="c-gtbcfza2qed3" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 400px; height: 580px;"></iframe>
+		[AllureSeverity(SeverityLevel.critical)]
+		[AllureTms("TMS")]
+		[AllureEpic("Regression Test")]
+		[AllureStory("verify_session_expire_and_login_back_to_same_page")]
+		[Test, Order(5)]
+		public void test_case_5_verify_session_expire_and_login_back_to_same_page()
+		{
+			WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+			_systemElements1.verifying_login_with_data_driven(12, 1, 12, 2);
+			var email_adress = _systemElements1.global_email_adress;
+			var password = _systemElements1.global_password;
+			Console.WriteLine(email_adress);
+			Console.WriteLine(password);
 
+			// Enter email address
+			_systemElements1.email_adress_textbox.Click();
+			_systemElements1.email_adress_textbox.Clear();
+			_systemElements1.email_adress_textbox.SendKeys(email_adress);
 
-            //click on sign in button
-            // waitformee.Until(driver => _systemElements1.captcha_label.Displayed);
-            //_systemElements1.captcha_label.Click();
-            //_systemElements1.verify_captcha_clickable();
-            _systemElements1.signin_button.Click();
-            Console.WriteLine("Data is added from excel sheet");
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            takesceenshot("TC_2_invalid_email_invalid_pwd.png");
-            waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
-            waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
-            Console.WriteLine("Login email validation is checked and showing following validation message: " + _systemElements1.login_email_validation.Text);
-            Console.WriteLine("Login Password validation is checked and showing following validation message: " + _systemElements1.login_pwd_validation.Text);
-            close();           
-        }
+			// Enter password
+			_systemElements1.password_textbox.Click();
+			_systemElements1.password_textbox.Clear();
+			_systemElements1.password_textbox.SendKeys(password);
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			_systemElements1.signin_button.Click();
+			Console.WriteLine("Data imported from excel");
 
+			try
+			{
+				bool system_settings_display_first = _systemElements1.go_back_to_haibooks_leftmenu.Displayed;
+				if (system_settings_display_first == true)
+				{
+					_systemElements1.go_back_to_haibooks_leftmenu.Click();
+				}
+			}
+			catch (Exception e) { }
 
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_login_test_case_valid_email_invalid_pwd")]
+			Thread.Sleep(TimeSpan.FromSeconds(3));
+			waitformee.Until(driver => _systemElements1.contacts_leftmenu.Displayed);
+			_systemElements1.contacts_leftmenu.Click();
+			waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);
+			Takescreenshot("page_before_session_destroy.png");
 
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772996%7D
-        //Automation-key-5
+			Thread.Sleep(TimeSpan.FromSeconds(2));
+			driver.Manage().Cookies.DeleteAllCookies();
+			Thread.Sleep(TimeSpan.FromSeconds(1));
+			driver.Navigate().Refresh();
+			waitformee.Until(driver => _systemElements1.signin_button.Displayed);
+			Takescreenshot("session_out.png");
+			bool alert_session_out_message = _systemElements1.alert_session_out.Displayed;
+			if (alert_session_out_message == true)
+			{
+				Console.WriteLine(_systemElements1.alert_session_out.Text);
+			}
 
-        [Test, Order(3)]
-        public void test_case_3_verify_login_test_case_valid_email_invalid_pwd()
-        {
-           
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);           
-            _systemElements1.verifying_login_with_data_driven(3,1,3,2);
-            var email_adress = _systemElements1.global_email_adress;
-            var password = _systemElements1.global_password;
-            Console.WriteLine(email_adress);
-            Console.WriteLine(password);
-            ////checking iframe exists
-            //try
-            //{
-            //    driver.SwitchTo().Frame(0);
-            //    Thread.Sleep(TimeSpan.FromSeconds(10));
-            //}
-            //catch (Exception e)
-            //{
-            //    driver.SwitchTo().DefaultContent();
-            //    Console.WriteLine("iframme switch does not exists");
-            //}
-            //driver.SwitchTo().DefaultContent();
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();
-            _systemElements1.email_adress_textbox.SendKeys(email_adress);
+			_systemElements1.verifying_login_with_data_driven(12, 1, 12, 2);
+			var email_adress1 = _systemElements1.global_email_adress;
+			var password1 = _systemElements1.global_password;
+			Console.WriteLine(email_adress1);
+			Console.WriteLine(password1);
 
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();
-            _systemElements1.password_textbox.SendKeys(password);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.signin_button.Click();
-            Console.WriteLine("Data imported from excel");
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            waitformee.Until(driver => _systemElements1.login_email_validation.Displayed);
-            waitformee.Until(driver => _systemElements1.login_pwd_validation.Displayed);
-            Console.WriteLine("Login email validation is checked and showing following validation message: " + _systemElements1.login_email_validation.Text);
-            Console.WriteLine("Login Password validation is checked and showing following validation message: " + _systemElements1.login_pwd_validation.Text);
-            takesceenshot("TC_3_valid_email_invalid_pwd.png");
-            close();
-        }
+			// Enter email address
+			_systemElements1.email_adress_textbox.Click();
+			_systemElements1.email_adress_textbox.Clear();
+			_systemElements1.email_adress_textbox.SendKeys(email_adress1);
 
-
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page")]
-
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:886164%7D
-        //Automation-key-116
-        //Automation-key-118
-        [Test, Order(4)]
-        public void test_case_4_verify_that_user_is_able_to_see_the_forgot_password_option_from_login_page()
-        {
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
-            bool forgot_password = _systemElements1.Forgot_password.Displayed;
-            _systemElements1.Forgot_password.Click();
-            waitformee.Until(driver => _systemElements1.email_address_send_button.Displayed);
-            waitformee.Until(driver => _systemElements1.back_to_login_button.Displayed);
-            _systemElements1.back_to_login_button.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            bool signin_button_showing = _systemElements1.signin_button.Displayed;
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(true, forgot_password, "Forgot password link should be showing");
-                Assert.AreEqual(true, signin_button_showing, "Verify user navigate back to login page");
-            });
-        }
-
-
-
-            [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_session_expire_and_login_back_to_same_page")]
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:772999%7D
-        ////Automation-key-6
-
-
-
-        [Test, Order(5)]
-        public void test_case_5_verify_session_expire_and_login_back_to_same_page()
-        {           
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);           
-           _systemElements1.verifying_login_with_data_driven(12, 1, 12, 2);           
-            var email_adress = _systemElements1.global_email_adress;
-            var password = _systemElements1.global_password;
-            Console.WriteLine(email_adress);
-            Console.WriteLine(password);
-            //driver.SwitchTo().DefaultContent();
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();
-            _systemElements1.email_adress_textbox.SendKeys(email_adress);
-
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();
-            _systemElements1.password_textbox.SendKeys(password);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.signin_button.Click();
-            Console.WriteLine("Data imported from excel");
-            try { 
-                bool system_settings_display_first = _systemElements1.go_back_to_haibooks_leftmenu.Displayed;
-             if (system_settings_display_first == true)
-                    {
-                      _systemElements1.go_back_to_haibooks_leftmenu.Click();
-                     }
-                }
-            catch(Exception e){}
-            Thread.Sleep(TimeSpan.FromSeconds(3));
-            waitformee.Until(driver => _systemElements1.contacts_leftmenu.Displayed);
-            _systemElements1.contacts_leftmenu.Click();
-            waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);           
-            takesceenshot("page_before_session_destroy.png");
-
-            //Get session Id
-            //string sessionId = ((RemoteWebDriver)driver).SessionId.ToString();
-            //Console.WriteLine(sessionId);
-
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            driver.Manage().Cookies.DeleteAllCookies();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            driver.Navigate().Refresh();
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
-            takesceenshot("session_out.png");
-            bool alert_session_out_message = _systemElements1.alert_session_out.Displayed;
-            if(alert_session_out_message==true ) 
-            {
-                Console.WriteLine("Session time out message is showing: " + _systemElements1.alert_session_out.Text);
-            }
-            if (_systemElements1.signin_button.Displayed)
-            {
-                Console.WriteLine("user has been log out");
-            }
-
-            //Login again and verify same contact page open
-
-           _systemElements1.verifying_login_with_data_driven(12, 1, 12, 2);         
-            
-            //driver.SwitchTo().DefaultContent();
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();
-            _systemElements1.email_adress_textbox.SendKeys(email_adress);
-
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();
-            _systemElements1.password_textbox.SendKeys(password);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.signin_button.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);
-            takesceenshot("login_again_and_same_page_open.png");
-            close();        
-        }
-
-
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureTms("TMS")]
-        [AllureEpic("Regression Test")]
-        [AllureStory("verify_login_test_case_valid_email_valid_pwd")]
-
-        //https://haibooks.atlassian.net/plugins/servlet/ac/com.kaanha.jira.tcms/aio-tcms-app-browse?ac.project.id=10000&ac.page=case-details&ac.params=%7B%22caseId%22:764823%7D
-        //Automation-key-1
-
-        [Test, Order(6)]
-        public void test_case_6_verify_login_test_case_valid_email_valid_pwd()
-        {
-            
-            WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-            waitformee.Until(driver => _systemElements1.signin_button.Displayed);
-            _systemElements1.verifying_login_with_data_driven(12, 1, 12, 2);           
-            var email_adress = _systemElements1.global_email_adress;
-            var password = _systemElements1.global_password;
-            Console.WriteLine(email_adress);
-            Console.WriteLine(password);
-            //checking iframe exists
-            //try
-            //{
-            //    driver.SwitchTo().Frame(0);
-            //    Thread.Sleep(TimeSpan.FromSeconds(10));
-            //}
-            //catch (Exception e)
-            //{
-            //    driver.SwitchTo().DefaultContent();
-            //    Console.WriteLine("iframme switch does not exists");
-            //}
-            //driver.SwitchTo().DefaultContent();
-            _systemElements1.email_adress_textbox.Click();
-            _systemElements1.email_adress_textbox.Clear();
-            _systemElements1.email_adress_textbox.SendKeys(email_adress);
-
-            //Enter password
-            _systemElements1.password_textbox.Click();
-            _systemElements1.password_textbox.Clear();
-            _systemElements1.password_textbox.SendKeys(password);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            _systemElements1.signin_button.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-            Console.WriteLine("Data imported from excel");
-            //try
-            //{
-            //    bool system_settings_display_first = _systemElements1.go_back_to_haibooks_leftmenu.Displayed;
-            //    if (system_settings_display_first == true)
-            //    {
-            //        _systemElements1.go_back_to_haibooks_leftmenu.Click();
-            //    }
-            //}
-            //catch (Exception e) { }
-            //_systemElements1.dashboard_leftmenu.Click();
-            _systemElements1.perform_click_to_dashboard();           
-            Boolean create_new_left_side_showing = _systemElements1.create_new_left_side.Displayed;
-            if(create_new_left_side_showing==true)
-            {
-                Console.WriteLine("user logged in successfully");
-            }
-            else
-            {              
-            }            
-            waitformee.Until(driver => _systemElements1.financial_overview_view_sales_link.Displayed);
-            //waitformee.Until(driver => _systemElements1.create_new_left_side.Displayed);
-            takesceenshot("TC_4_valid_email_valid_pwd.png");
-            close();
-        }
-
-
-
-        //[Test, Order(6)]
-        //public void perform()
-        //{
-        //    TestInitForWeb("Chrome");
-        //    WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-        //    waitformee.Until(driver => _systemElements1.signin_button.Displayed);
-
-        //    if (loginurl == Constants.main_website)
-        //    {
-        //        _systemElements1.verifying_login_with_data_driven(4, 1, 4, 2);
-        //    }
-        //    else if (loginurl == Constants.test_website)
-        //    {
-        //        _systemElements1.verifying_login_with_data_driven(5, 1, 5, 2);
-        //    }
-        //    var email_adress = _systemElements1.global_email_adress;
-        //    var password = _systemElements1.global_password;
-        //    Console.WriteLine(email_adress);
-        //    Console.WriteLine(password);
-        //    //checking iframe exists
-        //    //try
-        //    //{
-        //    //    driver.SwitchTo().Frame(0);
-        //    //    Thread.Sleep(TimeSpan.FromSeconds(10));
-        //    //}
-        //    //catch (Exception e)
-        //    //{
-        //    //    driver.SwitchTo().DefaultContent();
-        //    //    Console.WriteLine("iframme switch does not exists");
-        //    //}
-        //    //driver.SwitchTo().DefaultContent();
-        //    _systemElements1.email_adress_textbox.Click();
-        //    _systemElements1.email_adress_textbox.Clear();
-        //    _systemElements1.email_adress_textbox.SendKeys(email_adress);
-
-        //    //Enter password
-        //    _systemElements1.password_textbox.Click();
-        //    _systemElements1.password_textbox.Clear();
-        //    _systemElements1.password_textbox.SendKeys(password);
-        //    Thread.Sleep(TimeSpan.FromSeconds(2));
-        //    _systemElements1.signin_button.Click();
-        //    Thread.Sleep(TimeSpan.FromSeconds(2));
-        //    Console.WriteLine("Data imported from excel");
-        //    try
-        //    {
-        //        bool system_settings_display_first = _systemElements1.go_back_to_haibooks_leftmenu.Displayed;
-        //        if (system_settings_display_first == true)
-        //        {
-        //            _systemElements1.go_back_to_haibooks_leftmenu.Click();
-        //        }
-        //    }
-        //    catch (Exception e) { }
-        //    _systemElements1.dashboard_leftmenu.Click();
-        //    waitformee.Until(driver => _systemElements1.create_new_left_side.Displayed);
-        //    waitformee.Until(driver => _systemElements1.financial_overview_view_sales_link.Displayed);
-        //    _systemElements1.financial_overview_view_sales_link.Click();
-
-        //    waitformee.Until(driver => driver.FindElements(By.XPath("//div[6]/div/table/tbody/tr/td[2]")));
-        //    Thread.Sleep(TimeSpan.FromSeconds(5));
-        //    Console.WriteLine( driver.FindElement(By.XPath("//table/tbody/tr[1]/td[2]/a")).Text);
-           
-        //    List <IWebElement> list_for_element = new List<IWebElement>();
-        //    list_for_element.AddRange(driver.FindElements(By.XPath("//table[contains(@class,'dx-datagrid-table dx-datagrid-table-fixed']/colgroup/col")));
-        //    if (list_for_element.Count > 0)
-        //    {
-        //        Console.WriteLine(list_for_element.Count);
-        //    }
-
-
-        //    //            Grid.ColumnCount:	9
-        //    //Grid.RowCount:	8
-
-        //    //#dx-col-1
-      
-               
-
-
-        //    //                /html/body/main/div[2]/div/div[2]/div[4]/div/div/div[6]/div/table/tbody/tr[1]/td[2]/a
-        //    //                /html/body/main/div[2]/div/div[2]/div[4]/div/div/div[6]/div/table/tbody/tr[1]/td[3]/a
-        //    //                /html/body/main/div[2]/div/div[2]/div[4]/div/div/div[6]/div/table/tbody/tr[2]/td[4]/div/button/div/div/div
-
-
-        //}
-
-
-    }
+			// Enter password
+			_systemElements1.password_textbox.Click();
+			_systemElements1.password_textbox.Clear();
+			_systemElements1.password_textbox.SendKeys(password1);
+			_systemElements1.signin_button.Click();
+			Console.WriteLine("Data imported from excel");
+			Thread.Sleep(TimeSpan.FromSeconds(3));
+			Takescreenshot("after_session_login_same_page.png");
+			waitformee.Until(driver => _systemElements1.contacts_leftmenu.Displayed);
+			waitformee.Until(driver => _systemElements1.create_new_contact.Displayed);
+			Takescreenshot("contact_screen_after_session_login_same_page.png");
+			bool contact_menu_left_after_login_again = _systemElements1.contacts_leftmenu.Displayed;
+			Assert.AreEqual(true, contact_menu_left_after_login_again, "Verify user login again and see the same screen");
+		}
+	}
 }
-
-    
-    

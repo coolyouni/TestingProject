@@ -52,7 +52,7 @@ namespace HaibooksAutomationForWeb
 
 
         [Test, Order(1)]
-        public void test_case_1_create_new_Mileage()
+        public void Test_case_1_create_new_Mileage()
         {
             _systemElements1.user_already_login();
             WebDriverWait waitformee = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
@@ -296,7 +296,7 @@ namespace HaibooksAutomationForWeb
                 Console.WriteLine("Fail: Mileage expense value does not match");
             }
 
-            close();
+            Close();
 
         }
 

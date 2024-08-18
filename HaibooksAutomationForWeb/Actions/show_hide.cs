@@ -149,7 +149,7 @@ namespace HaibooksAutomationForWeb.Elements
         public bool business_space_x_showing()
         {
             List<IWebElement> list_for_element1 = new List<IWebElement>();
-            list_for_element1.AddRange(driver.FindElements(By.XPath("//span[normalize-space()='SpaceX']")));
+            list_for_element1.AddRange(driver.FindElements(By.XPath("//span[normalize-space()='STLC Limited']")));
             if (list_for_element1.Count > 0)
             {               
                 return true;

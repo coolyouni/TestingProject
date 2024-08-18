@@ -25,7 +25,7 @@ namespace HaibooksAutomationForWeb.Elements
             Excel.Worksheet xlWorkSheet;
             object misValue = System.Reflection.Missing.Value;
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.excel_path_for_data_driven);
+            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);
             xlWorkSheet = (Excel.Worksheet)xlWorkbook.Worksheets.get_Item(sheet_no);
             xlWorkSheet.Activate();
             xlWorkSheet.Cells[row, col] = business_name;
@@ -42,7 +42,7 @@ namespace HaibooksAutomationForWeb.Elements
             Excel.Application xlApp = new Excel.Application();
 
             //Opens demo.xlsx
-            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.excel_path_for_data_driven);
+            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);
 
             //Selects the first Sheet
 
