@@ -1,4 +1,4 @@
-# Haibooks Automation Testing Project
+#  Testing Project
 
 ## Project Overview
 
