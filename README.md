@@ -1,4 +1,4 @@
-#  Testing Project
+# Testing Project
 
 ## Project Overview
 
@@ -18,6 +18,7 @@ This project is designed to automate the functional testing of the Haibooks web 
 
 The project is organized into the following directories:
 
+```
 HaibooksAutomationForWeb/
 │
 ├── src/
@@ -42,37 +43,53 @@ HaibooksAutomationForWeb/
 │ │ └── datadriven_haibooks.xlsx
 │ └── test/
 │ └── HaibooksAutomationForWeb.Tests.csproj
+```
 
+## Running the Tests
 
-Running the Tests
-Prerequisites
+### Prerequisites
+
 Ensure you have the following installed:
-.NET SDK
-NUnit Console Runner
-ChromeDriver (or another WebDriver)
+- .NET SDK
+- NUnit Console Runner
+- ChromeDriver (or another WebDriver)
+
 Restore the project dependencies using the following command:
+```bash
 dotnet restore
-Running Tests
+```
+
+### Running Tests
+
 You can run the tests using the NUnit Console Runner or directly from Visual Studio:
 
-Using NUnit Console Runner:
-
+**Using NUnit Console Runner:**
+```bash
 nunit3-console HaibooksAutomationForWeb.Tests.dll
-Using Visual Studio:
-Open the solution in Visual Studio and run the tests via the Test Explorer.
+```
 
-Data-Driven Testing
-This project uses Excel files for data-driven testing. The ExcelReader.cs utility class is responsible for reading test data from the Excel file located in the resources/ directory.
+**Using Visual Studio:**
+- Open the solution in Visual Studio and run the tests via the Test Explorer.
 
-Example: Reading Data from Excel
-Excel Reading:
+## Data-Driven Testing
 
-The Excel file is opened using xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);.
-The specific cells are accessed using xlRange.Cells[row, column].Value2.ToString();.
-I included exception handling (try-catch-finally) to ensure that resources are properly released, even if an exception occurs.
-COM Object Release:
+This project uses Excel files for data-driven testing. The `ExcelReader.cs` utility class is responsible for reading test data from the Excel file located in the `resources/` directory.
 
-The Marshal.ReleaseComObject is used to properly release COM objects, preventing memory leaks and ensuring the Excel process exits cleanly.
-Error Handling:
+### Example: Reading Data from Excel
 
-A COMException is caught, and a message is printed to the console to aid in debugging if something goes wrong during file access.
+#### Excel Reading:
+- The Excel file is opened using:
+  ```csharp
+  xlApp.Workbooks.Open(Constants.ExcelPathForDataDriven);
+  ```
+- The specific cells are accessed using:
+  ```csharp
+  xlRange.Cells[row, column].Value2.ToString();
+  ```
+- Exception handling (`try-catch-finally`) ensures resources are properly released, even if an exception occurs.
+
+#### COM Object Release:
+- The `Marshal.ReleaseComObject` is used to properly release COM objects, preventing memory leaks and ensuring the Excel process exits cleanly.
+
+#### Error Handling:
+- A `COMException` is caught, and a message is printed to the console to aid in debugging if something goes wrong during file access.
